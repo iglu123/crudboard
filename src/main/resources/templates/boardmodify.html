@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Notice Board</title>
+</head>
+<style>
+
+  .top-layout {
+    background-color : pink;
+    width : 100%;
+    margin-top : 3px;
+
+  }
+  .layout {
+    width : 500px;
+    margin : 0 auto;
+
+  }
+
+  .layout input {
+    width : 100%;
+    box-sizing : border-box;
+    margin-bottom : 10px;
+  }
+
+  .layout textarea {
+    width : 100%;
+
+    min-height : 300px;
+  }
+</style>
+<body>
+
+<div class = "top-layout">
+  <h2>Education</h2>
+</div>
+<div class = "layout">
+  <form th:action="@{/board/update/{id}(id=${question.id})}" method="post">
+    <h3>Edit Your Question</h3>
+    <h5 style="margin-bottom: 1px">Title</h5>
+    <input name="subject" type="text" th:value="${question.subject}">
+    <h5 style="margin-bottom: 1px">Content</h5>
+    <textarea name="content" th:text="${question.content}"></textarea>
+    <button type="submit">Edit</button>
+  </form>
+</div>
+</body>
+</html>

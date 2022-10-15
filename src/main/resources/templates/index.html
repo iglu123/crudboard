@@ -4,7 +4,77 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .top-layout {
+        background-color : limegreen;
+        width : 100%;
+        margin-top : 3px;
+
+    }
+
+    img {
+        width: 500px;
+        height: 300px;
+        display:block;
+
+    }
+    .sign-form-layout {
+
+        background-color : white;
+        border: 15px solid limegreen;
+        width : 50%;
+        margin: 10px auto;
+
+    }
+
+    .sign-in-up {
+        border:solid 4px;
+    }
+
+</style>
 <body>
-index
+    <div class = "top-layout">
+        <h2>Education</h2>
+    </div>
+    <div  style="float:left; margin:auto;display: block; ">
+        <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png"/>
+    </div>
+
+    <div style="width:1000px; float: right">
+        <div class = "sign-form-layout">
+            <div class = "sign-in">
+                <h1>질문 게시판</h1>
+                <h3>로그인하셔야 이용가능합니다</h3>
+            </div>
+        </div>
+
+        <div class ="sign-in-up" style="width:600px; margin: auto;text-align: center">
+
+            <div class = "signin-layout" style="width:300px; float:left;">
+                <h1>Sign in</h1>
+                <p>email address</p>
+                <input type="text" autocomplete="on" placeholder="dkbmc.dk@dkbmc.com">
+                <p>password</p>
+                <input type ="password" minlength="4" maxlength="8">
+                <br>
+                <button>Sign in</button>
+            </div>
+
+            <div class = "signup-layout" style="width:300px; float:right;">
+                <h1>Don't have an ID?</h1>
+                <h3>Sign up for free!</h3>
+                <button onclick="window.location.href='/signup'">Sign up</button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
 </body>
+
+
+
+
 </html>

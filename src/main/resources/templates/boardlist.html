@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Board List Page</title>
+</head>
+
+<style>
+
+    .top-layout {
+        background-color : pink;
+        width : 100%;
+        margin-top : 3px;
+
+    }
+
+    .layout {
+        width : 1250px;
+        margin :  auto;
+        align-self: center;
+
+    }
+
+    #listtable {
+        margin-left:auto; margin-right:auto;
+    }
+
+</style>
+<body>
+  <div class = "top-layout">
+      <h2>Education</h2>
+  </div>
+  <div class="layout">
+    <button onclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
+    <table id="listtable" border="1">
+        <thead>
+            <tr>
+                <th width="50px" align="center">Article Number</th>
+                <th width="800px" align="center">Title</th>
+                <th width="100px" align="center">User</th>
+                <th width="300px" align="center">DateTime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="question , loop : ${paging}" >
+                <td th:text="${question.id}"  align="center"></td>
+                <td>
+                    <a th:text="${question.subject}" th:href="@{/board/view(id=${question.id})}"></a>
+                </td>
+                <td th:text="${question.author_id}"  align="center"></td>
+                <td th:text="${question.create_date}"  align="center"></td>
+            </tr>
+        </tbody>
+    </table>
+
+      <!-- 페이징처리 시작 -->
+<!--      <div th:if="${!paging.isEmpty()}">-->
+<!--          <ul class="pagination justify-content-center">-->
+<!--              <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                  <a class="page-link"-->
+<!--                     th:href="@{|?page=${paging.number-1}|}">-->
+<!--                      <span>이전</span>-->
+<!--                  </a>-->
+<!--              </li>-->
+<!--              <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
+<!--                  th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
+<!--                  th:classappend="${page == paging.number} ? 'active'"-->
+<!--                  class="page-item">-->
+<!--                  <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
+<!--              </li>-->
+<!--              <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                  <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+<!--                      <span>다음</span>-->
+<!--                  </a>-->
+<!--              </li>-->
+<!--          </ul>-->
+<!--      </div>-->
+      <!-- 페이징처리 끝 -->
+
+  </div>
+</body>
+</html>

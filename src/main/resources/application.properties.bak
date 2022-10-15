@@ -8,5 +8,8 @@ spring.datasource.username=postgres
 spring.datasource.password=pass
 spring.mvc.hiddenmethod.filter.enabled=true
 
-
+# JPA
 spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql = true
+spring.jpa.show-sql = true
