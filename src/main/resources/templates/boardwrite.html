@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notice Board</title>
+</head>
+<style>
+
+    .top-layout {
+        background-color : pink;
+        width : 100%;
+        margin-top : 3px;
+
+    }
+    .layout {
+        width : 500px;
+        margin : 0 auto;
+
+    }
+
+    .layout input {
+        width : 100%;
+        box-sizing : border-box;
+        margin-bottom : 10px;
+    }
+
+    .layout textarea {
+        width : 100%;
+
+        min-height : 300px;
+    }
+</style>
+<body>
+
+  <div class = "top-layout">
+      <h2>Education</h2>
+  </div>
+  <div class = "layout">
+      <form action="/board/writepro" method="post">
+        <h3>질문 등록</h3>
+          <h5>제목</h5>
+        <input name="subject" type="text">
+          <h5>내용</h5>
+        <textarea name="content"></textarea>
+        <button type="submit">작성</button>
+      </form>
+  </div>
+</body>
+</html>
