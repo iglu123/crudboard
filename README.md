@@ -1,1 +1,2 @@
-"# make_board" 
+"# make_board"   
+home에서 적음
