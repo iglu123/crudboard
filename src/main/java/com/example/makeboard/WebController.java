@@ -91,12 +91,13 @@ public class WebController {
 
     @GetMapping("/board/ansdelete")
     public String ansDelete(Integer id) {
+
+        answer answer = this.answerService.getAnswer(id);
         answerService.ansDelete(id);
 
 
-
-
-        return String.format("redirect:/board/view/%s","?id=26");
+        //return String.format("redirect:/board/view/%s","?id=26");
+        return String.format("redirect:/board/view/?id=%s", answer.getQuestion().getId());
 
     }
 
@@ -118,6 +119,26 @@ public class WebController {
         return String.format("redirect:/board/view/%s","?id="+id);
     }
 
+    @GetMapping("/board/ansmodify/{id}")
+    public String ansboardModify(@PathVariable("id") Integer id, Model model ) {
+        model.addAttribute("answer", answerService.getAnswer(id));
+
+
+        return "answerform";
+
+    }
+
+    @PostMapping("/board/ansupdate/{id}")
+    public String ansboardUpdate(@PathVariable("id") Integer id, answer answer) {
+
+        answer answertmp = answerService.getAnswer(id);
+        answertmp.setContent(answer.getContent());
+        answertmp.setModify_date(LocalDateTime.now());
+
+        answerService.ansModify(answertmp, answertmp.getContent());
+
+        return String.format("redirect:/board/view/?id=%s", answertmp.getQuestion().getId());
+    }
 
     @GetMapping("/signup")
     public String signUp() {
