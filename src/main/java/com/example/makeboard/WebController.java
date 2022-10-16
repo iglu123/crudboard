@@ -91,12 +91,13 @@ public class WebController {
 
     @GetMapping("/board/ansdelete")
     public String ansDelete(Integer id) {
+
+        answer answer = this.answerService.getAnswer(id);
         answerService.ansDelete(id);
 
 
-
-
-        return String.format("redirect:/board/view/%s","?id=26");
+        //return String.format("redirect:/board/view/%s","?id=26");
+        return String.format("redirect:/board/view/?id=%s", answer.getQuestion().getId());
 
     }
 
@@ -118,6 +119,14 @@ public class WebController {
         return String.format("redirect:/board/view/%s","?id="+id);
     }
 
+    @PostMapping("/board/ansmodify/{id}")
+    public String ansModify(@PathVariable("id") Integer id ) {
+        answer answer = this.answerService.getAnswer(id);
+
+        answerService.ansModify(answer,answer.getContent() );
+        return String.format("redirect:/board/view/?id=%s", answer.getQuestion().getId());
+
+    }
 
     @GetMapping("/signup")
     public String signUp() {

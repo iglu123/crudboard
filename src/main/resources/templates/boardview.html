@@ -80,7 +80,7 @@
                             <td style="height:100px;padding-bottom:0px">
                                 <div>"[[${answer.content}]]"</div>
                                 <div class="reply-button" style="margin-bottom:2px;text-align:right;">
-                                    <button>Edit</button>
+                                    <button th:onclick="|location.href='@{/board/ansmodify/(id=${answer.id})}'|">Edit</button>
                                     <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|">Delete</button>
 
                                 </div>

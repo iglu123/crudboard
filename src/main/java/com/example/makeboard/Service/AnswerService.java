@@ -43,6 +43,12 @@ public class AnswerService {
 
     }
 
+    public void ansModify(answer answer, String content) {
+        answer.setContent(content);
+        answer.setModify_date(LocalDateTime.now());
+        this.answerRepository.save(answer);
+    }
+
 //    //게시물 목록
 //    public answer ansboardList(Integer id){
 //
