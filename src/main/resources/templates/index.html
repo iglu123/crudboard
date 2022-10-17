@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <style>
     .top-layout {
@@ -33,6 +34,16 @@
 
 </style>
 <body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="board/list">BoardList</a></li>
+<!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" href="signup">Signup</a></li>
+            <li style="float:right"><a class="active" href="#about">Login</a></li>
+        </ul>
+    </nav>
+
     <div class = "top-layout">
         <h2>Education</h2>
     </div>

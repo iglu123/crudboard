@@ -59,7 +59,7 @@ public class QuestionService {
         List<Sort.Order> sorts = new ArrayList<>();
         sorts.add(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.questionRepository.findAllBy(pageable);
+        return this.questionRepository.findAll(pageable);
     }
 
 
