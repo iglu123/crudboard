@@ -4,6 +4,7 @@ import com.example.makeboard.Domain.Question.question;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
 import org.w3c.dom.Text;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class answer {
     private LocalDateTime modify_date;
     private Long author_id;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     private question question;
 
 

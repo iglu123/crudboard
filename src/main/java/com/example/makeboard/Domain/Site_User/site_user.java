@@ -14,7 +14,13 @@ public class site_user {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false )
     private Long id;
+
+    @Column(unique = true)
     private String email;
+
+
     private String password;
+
+    @Column(unique=true)
     private String username;
 }
