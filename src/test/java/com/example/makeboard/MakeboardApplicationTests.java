@@ -31,12 +31,12 @@ class MakeboardApplicationTests {
 	@Test
 	void contextLoads() {
 //		answer a = new answer();
-//		question q = new question();
+//		question q1 = new question();
 //		answer_voter av = new answer_voter();
 //		question_voter qv = new question_voter();
 //		site_user s = new site_user();
 //
-//		q.setId(1);
+//		q1.setId(1);
 //		av.setAnswer_id(1);
 //		av.setVoter_id(100l);
 //		qv.setQuestion_id(1);

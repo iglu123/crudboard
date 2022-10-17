@@ -71,6 +71,7 @@
                             <th style="width:100px">User</th>
                             <th width="600px">Answer</th>
                             <th width="200px">Created</th>
+                            <th width="200px">Modified</th>
                         </tr>
 
                     </thead>
@@ -80,12 +81,13 @@
                             <td style="height:100px;padding-bottom:0px">
                                 <div>"[[${answer.content}]]"</div>
                                 <div class="reply-button" style="margin-bottom:2px;text-align:right;">
-                                    <button>Edit</button>
+                                    <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|">Edit</button>
                                     <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|">Delete</button>
 
                                 </div>
                             </td>
                             <td th:text="${#temporals.format(answer.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+                            <td th:text="${#temporals.format(answer.modify_date,'yy-MM-dd HH:mm:ss')}"></td>
                         </tr>
 
                     </tbody>
