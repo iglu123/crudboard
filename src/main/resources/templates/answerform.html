@@ -2,7 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Notice Board</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+  <title>Edit Answer</title>
 </head>
 <style>
 
@@ -33,9 +35,17 @@
   }
 </style>
 <body>
-
+<nav class="navbar1" style="background-color: limegreen">
+  <ul>
+    <li><a href="#">QNAver</a></li>
+    <li><a href="board/list">BoardList</a></li>
+    <!--            <li><a href="#contact">Contact</a></li>-->
+    <li style="float:right"><a class="active" href="signup">Signup</a></li>
+    <li style="float:right"><a class="active" href="#about">Login</a></li>
+  </ul>
+</nav>
 <div class = "top-layout">
-  <h2>Education</h2>
+  <h1>답변 수정</h1>
 </div>
 <div class = "layout">
   <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">

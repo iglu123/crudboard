@@ -2,17 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>QNAver</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 <style>
     .top-layout {
         background-color : limegreen;
         width : 100%;
-        margin-top : 3px;
+        margin : 3px auto;
 
     }
 
+    .home-content {
+        margin : auto;
+        display: inline-flex;
+        justify-content: space-evenly;
+
+    }
     img {
         width: 500px;
         height: 300px;
@@ -34,9 +41,9 @@
 
 </style>
 <body>
-    <nav class="navbar">
+    <nav class="navbar1">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="#">QNAver</a></li>
             <li><a href="board/list">BoardList</a></li>
 <!--            <li><a href="#contact">Contact</a></li>-->
             <li style="float:right"><a class="active" href="signup">Signup</a></li>
@@ -45,13 +52,15 @@
     </nav>
 
     <div class = "top-layout">
-        <h2>Education</h2>
+        <h2>질의 응답 게시판</h2>
     </div>
-    <div  style="float:left; margin:auto;display: block; ">
-        <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png"/>
-    </div>
+    <div class="home-content">
 
-    <div style="width:1000px; float: right">
+        <div  style="float:left; margin:auto;display: block; ">
+            <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png"/>
+        </div>
+
+        <div style="width:1000px; float: right">
         <div class = "sign-form-layout">
             <div class = "sign-in">
                 <h1>질문 게시판</h1>
@@ -78,6 +87,7 @@
             </div>
 
         </div>
+    </div>
 
     </div>
 

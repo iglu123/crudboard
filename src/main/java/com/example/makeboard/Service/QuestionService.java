@@ -35,9 +35,9 @@ public class QuestionService {
 
 
     //게시물 목록
-    public List<question> boardList() {
+    public Page<question> boardList(Pageable pageable) {
 
-        return questionRepository.findAll();
+        return questionRepository.findAll(pageable);
     }
 
     //질문 게시글 불러오기
@@ -62,5 +62,10 @@ public class QuestionService {
         return this.questionRepository.findAll(pageable);
     }
 
+
+    public Page<question> searchList(String keyword, Pageable pageable) {
+
+        return questionRepository.findBySubjectContaining(keyword, pageable);
+    }
 
 }

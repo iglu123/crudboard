@@ -5,6 +5,9 @@ import com.example.makeboard.Domain.Question.question;
 import com.example.makeboard.Service.AnswerService;
 import com.example.makeboard.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -55,11 +58,28 @@ public class WebController {
 //    }
 
     @GetMapping("/board/list")
-    public String boardList(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+    public String boardList(Model model,
+                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            String keyword) {
+
+        Page<question> list = null;
+        if(keyword == null) {
+            list = questionService.boardList(pageable);
+        } else {
+            list = questionService.searchList(keyword, pageable);
+        }
 
 //        model.addAttribute("boardList", questionService.boardList());
-        Page<question> paging = this.questionService.getList(page);
-        model.addAttribute("paging", paging);
+//        Page<question> list = questionService.boardList(pageable);
+
+        int nowPage = pageable.getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4 , 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "boardlist";
     }
 
