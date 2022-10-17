@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
@@ -54,10 +54,10 @@
 
   <div class="layout11">
 
-    <button typeonclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
+    <button type onclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
 
-      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>
-      <input text style="width:600px; float:right; text-align: right;">
+      <button type="button" class="btn btn-outline-dark" id="search-btn" style="float:right;">Search</button>
+      <input type="text" th:value="${kw}" style="width:600px; float:right; text-align: right;">
       <table class="table table-bordered table-striped" >
         <thead>
             <tr>
@@ -101,6 +101,9 @@
               </li>
           </ul>
       </div>
+
+      <form th:action="@{/board/list}" method="get"></form>
+
 
 
   </div>

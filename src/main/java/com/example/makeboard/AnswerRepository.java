@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface AnswerRepository extends JpaRepository<answer, Integer> {
 
-
 }

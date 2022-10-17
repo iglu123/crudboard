@@ -55,11 +55,12 @@ public class WebController {
 //    }
 
     @GetMapping("/board/list")
-    public String boardList(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+    public String boardList(Model model, @RequestParam(value="page", defaultValue="0") int page, @RequestParam(value="kw", defaultValue = "") String kw) {
 
 //        model.addAttribute("boardList", questionService.boardList());
-        Page<question> paging = this.questionService.getList(page);
+        Page<question> paging = this.questionService.getList(page, kw);
         model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
         return "boardlist";
     }
 
@@ -145,6 +146,6 @@ public class WebController {
         return "signup";
     }
 }
-//다시 추가
+
 
 
