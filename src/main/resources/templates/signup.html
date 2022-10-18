@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Sign Up</title>
 </head>
 <style>
@@ -15,10 +17,19 @@
 
 </style>
 <body>
+    <nav class="navbar1" style="background-color: limegreen">
+        <ul>
+            <li><a href="#">QNAver</a></li>
+            <li><a href="board/list">BoardList</a></li>
+            <!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" href="signup">Signup</a></li>
+            <li style="float:right"><a class="active" href="#about">Login</a></li>
+        </ul>
+    </nav>
     <div class = "top-layout">
-        <h2>Education</h2>
+        <h2>Sign up</h2>
     </div>
-    <h2>Sign Up!</h2>
+    <h2>Be a Member!</h2>
     <p>userid</p>
     <input type="text">
     <p>password</p>

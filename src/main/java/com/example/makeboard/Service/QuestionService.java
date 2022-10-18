@@ -31,25 +31,6 @@ public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    private Specification<question> search(String kw) {
-        return new Specification<>() {
-            private static final long serialVersionUID = 1L;
-            @Override
-            public Predicate toPredicate(Root<question> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                query.distinct(true);  // 중복을 제거
-                Join<question, site_user> u1 = q.join("author", JoinType.LEFT);
-                Join<question, answer> a = q.join("answerList", JoinType.LEFT);
-                Join<answer, site_user> u2 = a.join("author", JoinType.LEFT);
-                return cb.or(cb.like(q.get("subject"), "%" + kw + "%"), // 제목
-                        cb.like(q.get("content"), "%" + kw + "%"),      // 내용
-                        cb.like(u1.get("username"), "%" + kw + "%"),    // 질문 작성자
-                        cb.like(a.get("content"), "%" + kw + "%"),      // 답변 내용
-                        cb.like(u2.get("username"), "%" + kw + "%"));   // 답변 작성자
-            }
-        };
-    }
-
-
 
     //질문 작성
     public void questwrite(question quest) {
@@ -62,9 +43,9 @@ public class QuestionService {
 
 
     //게시물 목록
-    public List<question> boardList() {
+    public Page<question> boardList(Pageable pageable) {
 
-        return questionRepository.findAll();
+        return questionRepository.findAll(pageable);
     }
 
     //질문 게시글 불러오기
@@ -82,13 +63,12 @@ public class QuestionService {
 
 
 
-    public Page<question> getList(int page, String kw) {
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("id"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        Specification<question> spec = search(kw);
-        return this.questionRepository.findAll(pageable);
-    }
 
+
+
+    public Page<question> searchList(String keyword, Pageable pageable) {
+
+        return questionRepository.findBySubjectContaining(keyword, pageable);
+    }
 
 }

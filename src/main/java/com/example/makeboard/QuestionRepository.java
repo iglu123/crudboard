@@ -10,5 +10,6 @@ public interface QuestionRepository extends JpaRepository <question, Integer > {
 
 
     Page<question> findAll(Pageable pageable);
-    Page<question> findAll(Specification<question> spec, Pageable pageable);
+
+    Page<question> findBySubjectContaining(String keyword, Pageable pageable);
 }

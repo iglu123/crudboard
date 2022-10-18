@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <title>Board List Page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>Question List Page</title>
 </head>
 
 <style>
@@ -48,16 +49,32 @@
 
 </style>
 <body>
+    <nav class="navbar1" style="background-color: limegreen">
+        <ul>
+            <li><a href="../">QNAver</a></li>
+            <li><a href="../board/list">BoardList</a></li>
+            <!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" href="../signup">Signup</a></li>
+            <li style="float:right"><a class="active" href="#about">Login</a></li>
+        </ul>
+    </nav>
   <div class = "top-layout">
-      <h2>Education</h2>
+      <h1>Question List</h1>
   </div>
 
   <div class="layout11">
 
     <button type onclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
 
-      <button type="button" class="btn btn-outline-dark" id="search-btn" style="float:right;">Search</button>
-      <input type="text" th:value="${kw}" style="width:600px; float:right; text-align: right;">
+
+<!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
+<!--      <input text style="width:600px; float:right; text-align: right;">-->
+      <form th:action="@{/board/list}" method="get">
+          <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>
+          <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">
+
+      </form>
+>>>>>>> d0b66926b79231174ed0d9ff38cea2047a9be668
       <table class="table table-bordered table-striped" >
         <thead>
             <tr>
@@ -68,7 +85,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="question , loop : ${paging}">
+            <tr th:each="question , loop : ${list}">
                 <td th:text="${question.id}"></td>
                 <td>
                     <a th:text="${question.subject}" th:href="@{/board/view(id=${question.id})}"></a>
@@ -79,28 +96,40 @@
         </tbody>
     </table>
 
+      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 
-      <div th:if="${!paging.isEmpty()}">
-          <ul class="pagination justify-content-center">
-              <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                  <a class="page-link"
-                     th:href="@{|?page=${paging.number - 1}|}">
-                      <span>이전</span>
-                  </a>
-              </li>
-              <li th:each="page: ${#numbers.sequence(0, paging.totalPages -1)}"
-                  th:if="${page >= paging.number -5 and page <= paging.number + 5}"
-                  th:classappend="${page == paging.number} ? 'active'"
-                  class="page-item">
-                  <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-              </li>
-              <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                  <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-                      <span>다음</span>
-                  </a>
-              </li>
-          </ul>
-      </div>
+          <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, keyword = ${param.keyword})}" th:text="${page}"></a>
+          <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+      </th:block>
+
+<!--      <form th:action="@{/board/list}" method="get">-->
+<!--          <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">-->
+<!--          <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>-->
+
+<!--      </form>-->
+
+
+<!--      <div th:if="${!paging.isEmpty()}">-->
+<!--          <ul class="pagination justify-content-center">-->
+<!--              <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
+<!--                  <a class="page-link"-->
+<!--                     th:href="@{|?page=${paging.number - 1}|}">-->
+<!--                      <span>이전</span>-->
+<!--                  </a>-->
+<!--              </li>-->
+<!--              <li th:each="page: ${#numbers.sequence(0, paging.totalPages -1)}"-->
+<!--                  th:if="${page >= paging.number -5 and page <= paging.number + 5}"-->
+<!--                  th:classappend="${page == paging.number} ? 'active'"-->
+<!--                  class="page-item">-->
+<!--                  <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
+<!--              </li>-->
+<!--              <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
+<!--                  <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
+<!--                      <span>다음</span>-->
+<!--                  </a>-->
+<!--              </li>-->
+<!--          </ul>-->
+<!--      </div>-->
 
       <form th:action="@{/board/list}" method="get"></form>
 
