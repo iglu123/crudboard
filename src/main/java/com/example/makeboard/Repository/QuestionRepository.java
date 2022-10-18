@@ -1,10 +1,9 @@
-package com.example.makeboard;
+package com.example.makeboard.Repository;
 
 import com.example.makeboard.Domain.Question.question;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository <question, Integer > {
 

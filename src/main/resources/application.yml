@@ -3,6 +3,12 @@ server:
   port: ${PORT:8100}
   compression:
     enabled: true
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
   #DATABASE
 spring:
   datasource:

@@ -1,7 +1,8 @@
-package com.example.makeboard;
+package com.example.makeboard.Controller;
 
 import com.example.makeboard.Domain.Answer.answer;
 import com.example.makeboard.Domain.Question.question;
+import com.example.makeboard.Repository.QuestionRepository;
 import com.example.makeboard.Service.AnswerService;
 import com.example.makeboard.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RequestMapping("/")
 @Controller
@@ -160,10 +160,7 @@ public class WebController {
         return String.format("redirect:/board/view/?id=%s", answertmp.getQuestion().getId());
     }
 
-    @GetMapping("/signup")
-    public String signUp() {
-        return "signup";
-    }
+
 }
 
 

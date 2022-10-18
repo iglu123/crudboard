@@ -1,24 +1,21 @@
 package com.example.makeboard.Domain.Site_User;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigInteger;
 
-@Getter
-@Setter
+@Data
 @Entity
 public class site_user {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false )
+    @Column(nullable = false, unique = true )
     private Long id;
 
     @Column(unique = true)
     private String email;
 
-
+    @Column(nullable = false)
     private String password;
 
     @Column(unique=true)

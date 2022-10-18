@@ -1,29 +1,14 @@
 package com.example.makeboard.Service;
 
 import com.example.makeboard.Domain.Question.question;
-import com.example.makeboard.Domain.Site_User.site_user;
-import com.example.makeboard.QuestionRepository;
+import com.example.makeboard.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.ArrayList;
-import org.springframework.data.domain.Sort;
-import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
-import com.example.makeboard.Domain.Answer.answer;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.JoinType;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class QuestionService {
