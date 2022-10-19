@@ -2,9 +2,12 @@ package com.example.makeboard.Controller;
 
 import com.example.makeboard.Domain.Answer.answer;
 import com.example.makeboard.Domain.Question.question;
+import com.example.makeboard.Domain.Site_User.site_user;
 import com.example.makeboard.Repository.QuestionRepository;
 import com.example.makeboard.Service.AnswerService;
 import com.example.makeboard.Service.QuestionService;
+import com.example.makeboard.Service.Site_userService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,6 +20,10 @@ import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 
+import java.security.Principal;
+
+
+@RequiredArgsConstructor
 @RequestMapping("/")
 @Controller
 public class WebController {
@@ -25,8 +32,12 @@ public class WebController {
     @Autowired
     private AnswerService answerService;
 
+    private final Site_userService site_userService;
+
     @Autowired
     private QuestionRepository questionRepository;
+
+
 
 
     @GetMapping ("/board/write") //localhost:8100/board/write
@@ -36,8 +47,9 @@ public class WebController {
 
 
     @PostMapping("/board/writepro")
-    public String questionWriteProcess(question quest) {
-        questionService.questwrite(quest);
+    public String questionWriteProcess(question quest, Principal principal) {
+        site_user site_username = this.site_userService.getUser(principal.getName());
+        questionService.questwrite(quest,site_username);
 
         return "redirect:/board/list";
     }
@@ -95,10 +107,11 @@ public class WebController {
 
 
     @PostMapping("/reply/{id}")
-    public String answerWriteProcess(Model model, @PathVariable("id") Integer id, @RequestParam String content) {
+    public String answerWriteProcess(Model model, @PathVariable("id") Integer id, @RequestParam String content, Principal principal) {
 //        answerService.answrite(ans);
         question question = this.questionService.boardView(id);
-        this.answerService.answrite(question, content);
+        site_user site_username = this.site_userService.getUser(principal.getName());
+        this.answerService.answrite(question, content, site_username);
         return String.format("redirect:/board/view/%s","?id="+id);
     }
 
@@ -128,13 +141,16 @@ public class WebController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, question question) {
+    public String boardUpdate(@PathVariable("id") Integer id, question question,Principal principal) {
         question questiontmp = questionService.boardView(id);
         questiontmp.setSubject(question.getSubject());
         questiontmp.setContent(question.getContent());
         questiontmp.setModify_date(LocalDateTime.now());
+        site_user site_username = this.site_userService.getUser(principal.getName());
 
-        questionService.questwrite(questiontmp);
+
+
+        questionService.questwrite(questiontmp,site_username);
 
         return String.format("redirect:/board/view/%s","?id="+id);
     }

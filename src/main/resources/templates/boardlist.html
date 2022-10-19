@@ -94,7 +94,7 @@
                 <td>
                     <a th:text="${question.subject}" th:href="@{/board/view(id=${question.id})}"></a>
                 </td>
-                <td th:text="${question.author_id}"></td>
+                <td th:text="${question.author.username}"></td>
                 <td th:text="${#temporals.format(question.create_date,'yy-MM-dd HH:mm:ss')}"></td>
             </tr>
         </tbody>
@@ -136,7 +136,7 @@
 <!--          </ul>-->
 <!--      </div>-->
 
-      <form th:action="@{/board/list}" method="get"></form>
+<!--      <form th:action="@{/board/list}" method="get"></form>-->
 
 
 

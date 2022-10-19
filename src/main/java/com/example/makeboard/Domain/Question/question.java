@@ -1,6 +1,7 @@
 package com.example.makeboard.Domain.Question;
 
 import com.example.makeboard.Domain.Answer.answer;
+import com.example.makeboard.Domain.Site_User.site_user;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,7 +34,9 @@ public class question {
     private LocalDateTime modify_date;
     @Column(length = 200)
     private String subject;
-    private Long author_id;
+
+    @ManyToOne
+    private site_user author;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<answer> answerList;

@@ -1,6 +1,7 @@
 package com.example.makeboard.Service;
 
 import com.example.makeboard.Domain.Question.question;
+import com.example.makeboard.Domain.Site_User.site_user;
 import com.example.makeboard.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,12 +19,16 @@ public class QuestionService {
 
 
     //질문 작성
-    public void questwrite(question quest) {
+    public void questwrite(question quest, site_user username) {
         if (quest.getCreate_date() == null) {
             quest.setCreate_date(LocalDateTime.now());
         }
-
-        questionRepository.save(quest);
+        question qquestion = new question();
+        qquestion.setContent(quest.getContent());
+        qquestion.setSubject(quest.getSubject());
+        qquestion.setCreate_date(quest.getCreate_date());
+        qquestion.setAuthor(username);
+        questionRepository.save(qquestion);
     }
 
 

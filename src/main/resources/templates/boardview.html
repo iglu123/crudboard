@@ -89,7 +89,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="answer : ${question.answerList}">
-                            <td th:text="${answer.author_id}"></td>
+                            <td th:text="${answer.author?.username}"></td>
                             <td style="height:100px;padding-bottom:0px">
                                 <div>"[[${answer.content}]]"</div>
                                 <div class="reply-button" style="margin-bottom:2px;text-align:right;">

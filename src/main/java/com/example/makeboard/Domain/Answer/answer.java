@@ -1,6 +1,7 @@
 package com.example.makeboard.Domain.Answer;
 
 import com.example.makeboard.Domain.Question.question;
+import com.example.makeboard.Domain.Site_User.site_user;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,9 @@ public class answer {
     private LocalDateTime create_date;
     @Column
     private LocalDateTime modify_date;
-    private Long author_id;
+
+    @ManyToOne
+    private site_user author;
 
     @ManyToOne(fetch=FetchType.LAZY)
     private question question;
