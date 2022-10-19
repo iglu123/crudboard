@@ -22,7 +22,7 @@
             <li><a href="#">QNAver</a></li>
             <li><a href="board/list">BoardList</a></li>
             <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" th:href="@{/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" th:href="@{user/signup}">Signup</a></li>
             <li style="float:right"><a class="active" href="#about">Login</a></li>
         </ul>
     </nav>
@@ -35,7 +35,7 @@
         </div>
 
     </div>
-    <form th:action="@{/signup}" th:object="${info}" method="post">
+    <form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
 
         <div>
             <label for="username" class="form-label">사용자ID</label>

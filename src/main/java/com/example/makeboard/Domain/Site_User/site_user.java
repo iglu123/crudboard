@@ -11,12 +11,14 @@ public class site_user {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String email;
+    @Column(unique=true)
+    private String username;
 
     @Column
     private String password;
 
-    @Column(unique=true)
-    private String username;
+    @Column(unique = true)
+    private String email;
+
+
 }

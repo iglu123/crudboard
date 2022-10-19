@@ -21,8 +21,8 @@ public class Site_userController {
     private final Site_userService site_userService;
 
     @GetMapping("/signup")
-    public String signup(Model model) {
-        model.addAttribute("info", new Site_userCreateForm());
+    public String signup(Site_userCreateForm site_userCreateForm) {
+
 
         return "signup";
     }
