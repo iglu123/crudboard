@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>QNAver</title>
@@ -46,8 +46,11 @@
             <li><a href="#">QNAver</a></li>
             <li><a href="board/list">BoardList</a></li>
 <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" th:href="@{/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" href="login">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+<!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+<!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
         </ul>
     </nav>
 

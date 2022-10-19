@@ -9,13 +9,12 @@ import javax.persistence.*;
 public class site_user {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true )
     private Long id;
 
     @Column(unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
     @Column(unique=true)
