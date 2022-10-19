@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
@@ -57,8 +57,10 @@
             <p th:text="${question.content}">내용 부분</p>
         </div>
 
-        <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|">Edit</button>
-        <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|">Delete</button>
+        <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|" sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername == question.author?.username}" th:text="Edit">수정</button>
+        <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|" sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="Delete">삭제</button>
         <hr>
 
         <div class="write-answer">
@@ -67,7 +69,7 @@
                 <h5>내용</h5>
                 <textarea name="content" id="content"
                           style="width:700px; min-height: 120px; margin:auto; "></textarea>
-                <input type="submit"></input>
+                <input type="submit" value="Submit" ></input>
             </form>
         </div>
         <br>
@@ -93,8 +95,10 @@
                             <td style="height:100px;padding-bottom:0px">
                                 <div>"[[${answer.content}]]"</div>
                                 <div class="reply-button" style="margin-bottom:2px;text-align:right;">
-                                    <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|">Edit</button>
-                                    <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|">Delete</button>
+                                    <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|" sec:authorize="isAuthenticated()"
+                                            th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}" th:text="Edit">수정</button>
+                                    <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|" sec:authorize="isAuthenticated()"
+                                            th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}" th:text="Delete">삭제</button>
 
                                 </div>
                             </td>
