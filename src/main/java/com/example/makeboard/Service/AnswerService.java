@@ -1,17 +1,13 @@
 package com.example.makeboard.Service;
 
-import com.example.makeboard.AnswerRepository;
+import com.example.makeboard.Repository.AnswerRepository;
 import com.example.makeboard.Domain.Answer.answer;
 import com.example.makeboard.Domain.Question.question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.imageio.plugins.tiff.TIFFDirectory;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Date;
-import java.util.List;
 
 
 @Service

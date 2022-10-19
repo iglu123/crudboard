@@ -51,10 +51,12 @@
 <body>
     <nav class="navbar1" style="background-color: limegreen">
         <ul>
-            <li><a href="#">QNAver</a></li>
-            <li><a href="board/list">BoardList</a></li>
+
+            <li><a href="../">QNAver</a></li>
+            <li><a href="../board/list">BoardList</a></li>
             <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" href="signup">Signup</a></li>
+            <li style="float:right"><a class="active" href="../signup">Signup</a></li>
+
             <li style="float:right"><a class="active" href="#about">Login</a></li>
         </ul>
     </nav>
@@ -64,7 +66,8 @@
 
   <div class="layout11">
 
-    <button typeonclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
+    <button type onclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
+
 
 <!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
 <!--      <input text style="width:600px; float:right; text-align: right;">-->
@@ -73,6 +76,9 @@
           <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">
 
       </form>
+
+
+
       <table class="table table-bordered table-striped" >
         <thead>
             <tr>
@@ -95,6 +101,7 @@
     </table>
 
       <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+
 
           <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, keyword = ${param.keyword})}" th:text="${page}"></a>
           <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
@@ -128,6 +135,10 @@
 <!--              </li>-->
 <!--          </ul>-->
 <!--      </div>-->
+
+      <form th:action="@{/board/list}" method="get"></form>
+
+
 
 
   </div>
