@@ -31,6 +31,12 @@ public class QuestionService {
         questionRepository.save(qquestion);
     }
 
+    public void questmodify(question quest,String subject, String content) {
+        quest.setSubject(subject);
+        quest.setContent(content);
+        quest.setModify_date(LocalDateTime.now());
+        this.questionRepository.save(quest);
+    }
 
     //게시물 목록
     public Page<question> boardList(Pageable pageable) {

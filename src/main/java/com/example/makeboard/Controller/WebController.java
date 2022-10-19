@@ -142,15 +142,15 @@ public class WebController {
 
     @PostMapping("/board/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id, question question,Principal principal) {
-        question questiontmp = questionService.boardView(id);
+        question questiontmp = this.questionService.boardView(id);
         questiontmp.setSubject(question.getSubject());
         questiontmp.setContent(question.getContent());
         questiontmp.setModify_date(LocalDateTime.now());
-        site_user site_username = this.site_userService.getUser(principal.getName());
 
 
 
-        questionService.questwrite(questiontmp,site_username);
+
+        this.questionService.questmodify(questiontmp,questiontmp.getSubject(),questiontmp.getContent());
 
         return String.format("redirect:/board/view/%s","?id="+id);
     }
