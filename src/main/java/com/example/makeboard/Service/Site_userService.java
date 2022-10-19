@@ -5,9 +5,8 @@ import com.example.makeboard.Domain.Site_User.site_user;
 import com.example.makeboard.Repository.Site_userRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +25,7 @@ public class Site_userService {
 
         user.setPassword(passwordEncoder.encode(password));
         this.site_userRepository.save(user);
+
         return user;
     }
 
