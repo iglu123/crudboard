@@ -3,7 +3,7 @@ package com.example.makeboard.Repository;
 import com.example.makeboard.Domain.Site_User.site_user;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Site_userRepository extends JpaRepository <site_user , Integer> {
+public interface Site_userRepository extends JpaRepository <site_user , Long> {
 
 
 }

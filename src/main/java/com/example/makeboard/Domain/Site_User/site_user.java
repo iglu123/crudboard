@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class site_user {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true )
     private Long id;
 

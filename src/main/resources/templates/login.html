@@ -6,7 +6,7 @@
 </head>
 
 <body class="text-center">
-  <form class="form-signin" th:action="@{/account/login}" method="post"> <!-- 요청 보내기-->
+  <form class="form-signin" th:action="@{/login}" method="post"> <!-- 요청 보내기-->
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
     <div th:if="${param.error}"  class="alert alert-danger" role="alert">
