@@ -1,15 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Title</title>
-</head>
-<body>
-    <form th:action="/editinfo">
-        <input type="text" value="">
 
-    </form>
-        <input type="text">
+</head>
+<style>
+
+</style>
+<nav class="navbar1">
+    <ul>
+        <li><a href="#">QNAver</a></li>
+        <li><a href="board/list">BoardList</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
+<body>
+
+    <div class = "layout">
+
+        <form th:action="@{../user/edit}" th:object="${site_userEditForm}" method="post">
+
+            <h3>Edit Your Info</h3>
+            <h5 style="margin-bottom: 1px">Username</h5>
+
+            <input name="username" type="text" th:value="${memberinfo?.getUsername()}">
+
+
+            <h5 style="margin-bottom: 1px; width: auto" >Current Password</h5>
+            <input name="curpass" type="hidden" th:value="${memberinfo.getPassword()}"></input>
+            <input name="password" type="password" th:text="${memberinfo.getPassword()}"></input>
+            <button onclick="showchangeBtn()" id="showbtn">Confirm</button>
+<!--            <div id="newpassword" th:if="${true}">-->
+                <div>
+                    <label for="password1" class="form-label">비밀번호</label>
+                    <input name="newpass1" type="password" th:field="*{password1}" class="form-control">
+
+                </div>
+                <div>
+                    <label for="password2" class="form-label">비밀번호</label>
+                    <input name="newpass2" type="password" th:field="*{password2}" class="form-control">
+
+                </div>
+
+<!--            </div>-->
+
+            <h5 style="margin-bottom: 1px">Email</h5>
+            <input name="email" th:value="${memberinfo?.getEmail()}">
+
+
+
+            <button type="submit">Edit</button>
+
+        </form>
+
+    </div>
+    <br>
+    <br>
+    <div>
+        <p>Withdrawal from QNAver</p>
+        <div>
+            <a href='/user/resign'>Resign</a>
+        </div>
+
+    </div>
+
 
 </body>
-</html>
+<!--<script>-->
+<!--    function showchangeBtn() {-->
+
+
+
+<!--        // btn1 숨기기 (display: none)-->
+<!--        if(true) {-->
+<!--            $('#newpassword').style.display=none;-->
+<!--        }-->
+
+
+<!--    }-->
+<!--</script>-->
+
+<!--</html>-->

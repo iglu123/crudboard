@@ -46,4 +46,13 @@ public class Site_userService {
         return null;
     }
 
+    public void updateUser(site_user site_user, String password){
+        site_user.setPassword(passwordEncoder.encode(password));
+//        site_user.setPassword(password);
+        site_userRepository.saveAndFlush(site_user);
+
+
+
+    }
+
 }
