@@ -7,8 +7,10 @@ import com.example.makeboard.Service.Site_userService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,11 +64,12 @@ public class Site_userController {
         return "login";
     }
 
-    @GetMapping("/resign")
-    public String resign(Principal principal) {
+    @Transactional
+    @GetMapping ("/resign")
+    public String resign(site_user site_user,Principal principal) {
         site_userService.deleteUser(principal.getName());
 
-        return "/";
+        return "redirect:/user/logout";
     }
 
     @GetMapping("/edit")
@@ -76,28 +79,24 @@ public class Site_userController {
         return "editinfo";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/editpw")
     public String editInfo(@Valid Site_userEditForm site_userEditForm, Principal principal,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "editinfo";
+            return "redirect:/user/edit";
         }
 
         if (!site_userEditForm.getPassword1().equals(site_userEditForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
-            return "editinfo";
+            return "redirect:/user/edit";
         }
         try{
             site_user site_usertmp = site_userService.getUser(principal.getName());
             site_userService.updateUser(site_usertmp, site_userEditForm.getPassword1());
-        }catch(DataIntegrityViolationException e) {
-            e.printStackTrace();
-            bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
-            return "editinfo";
-        }catch(Exception e) {
+        } catch(Exception e) {
 
-            bindingResult.reject("signupFailed", e.getMessage());
-            return "editinfo";
+            bindingResult.reject("changeFailed", e.getMessage());
+            return "redirect:/user/edit";
         }
 
         return "/login";

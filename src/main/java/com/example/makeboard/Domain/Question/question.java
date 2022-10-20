@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.OneToMany;
 
 @Data
@@ -20,18 +21,17 @@ import javax.persistence.OneToMany;
 public class question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name="question_id")
     private Integer id;
+
     @Column(columnDefinition = "TEXT")
     private String content;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date create_date;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date modify_date;
+
     @Column
     private LocalDateTime create_date;
+
     @Column
     private LocalDateTime modify_date;
+
     @Column(length = 200)
     private String subject;
 
@@ -40,5 +40,8 @@ public class question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<answer> answerList;
+
+    @ManyToMany
+    Set<site_user> voter;
 
 }

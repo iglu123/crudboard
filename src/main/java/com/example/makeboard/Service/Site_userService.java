@@ -41,9 +41,11 @@ public class Site_userService {
         }
     }
 
-    public site_user deleteUser(String username){
+    public void deleteUser(String username){
         Optional<site_user> siteUser = this.site_userRepository.deleteByUsername(username);
-        return null;
+
+
+
     }
 
     public void updateUser(site_user site_user, String password){

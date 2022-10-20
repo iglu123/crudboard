@@ -94,7 +94,8 @@
                 <td>
                     <a th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
                 </td>
-                <td th:text="${question.author?.username}"></td>
+                <td th:if="${question.author != null}" th:text="${question.author?.username}"></td>
+                <td th:unless="${question.author != null}" th:text="탈퇴회원"></td>
                 <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
             </tr>
         </tbody>

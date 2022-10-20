@@ -13,6 +13,7 @@ import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.ManyToOne;
 
 @Data
@@ -34,5 +35,7 @@ public class answer {
     @ManyToOne(fetch=FetchType.LAZY)
     private question question;
 
+    @ManyToMany
+    Set<site_user> voter;
 
 }
