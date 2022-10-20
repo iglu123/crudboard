@@ -41,4 +41,9 @@ public class Site_userService {
         }
     }
 
+    public site_user deleteUser(String username){
+        Optional<site_user> siteUser = this.site_userRepository.deleteByUsername(username);
+        return null;
+    }
+
 }

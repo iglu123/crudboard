@@ -90,12 +90,12 @@
         </thead>
         <tbody>
             <tr th:each="question , loop : ${list}">
-                <td th:text="${question.id}"></td>
+                <td th:text="${question?.id}"></td>
                 <td>
-                    <a th:text="${question.subject}" th:href="@{/board/view(id=${question.id})}"></a>
+                    <a th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
                 </td>
                 <td th:text="${question.author?.username}"></td>
-                <td th:text="${#temporals.format(question.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
             </tr>
         </tbody>
     </table>

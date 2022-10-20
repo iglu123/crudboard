@@ -5,13 +5,13 @@ import com.example.makeboard.Service.Site_userService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -57,5 +57,12 @@ public class Site_userController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/resign")
+    public String resign(Principal principal) {
+        site_userService.deleteUser(principal.getName());
+
+        return "/";
     }
 }

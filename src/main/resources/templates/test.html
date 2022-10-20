@@ -1,5 +1,13 @@
-<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
-<div layout:fragment="content" class="container my-3">
-    <p> helloworld</p>
-</div>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+</head>
+<link rel="import" href="C://project/spring/makeboard/src/main/resources/templates/nav.html">
+<nav src="nav.html"></nav>
+<body>
+<p>hello</p>
+<button type="button" onclick="window.location.href='/user/resign'">탈퇴</button>
+
+</body>
 </html>
