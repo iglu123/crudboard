@@ -50,6 +50,11 @@ public class AnswerService {
         this.answerRepository.save(answer);
     }
 
+    public void vote(answer answer, site_user site_user) {
+        answer.getVoter().add(site_user);
+        this.answerRepository.save(answer);
+    }
+
 //    //게시물 목록
 //    public answer ansboardList(Integer id){
 //

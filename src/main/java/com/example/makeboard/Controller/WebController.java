@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -176,6 +177,26 @@ public class WebController {
         return String.format("redirect:/board/view/?id=%s", answertmp.getQuestion().getId());
     }
 
+    //question vote
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/questvote/{id}")
+    public String questionVote(Principal principal, @PathVariable("id") Integer id) {
+        question question = this.questionService.boardView(id);
+        site_user siteUser = this.site_userService.getUser(principal.getName());
+        this.questionService.vote(question, siteUser);
+        return String.format("redirect:/board/view/?id=%s", id);
+    }
+
+
+    //answer vote
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/ansvote/{id}")
+    public String answerVote(Principal principal, @PathVariable("id") Integer id) {
+        answer answer = this.answerService.getAnswer(id);
+        site_user siteUser = this.site_userService.getUser(principal.getName());
+        this.answerService.vote(answer, siteUser);
+        return String.format("redirect:/board/view/?id=%s", answer.getQuestion().getId());
+    }
 
 }
 

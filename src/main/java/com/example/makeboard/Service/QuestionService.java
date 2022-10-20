@@ -67,5 +67,11 @@ public class QuestionService {
         return questionRepository.findBySubjectContaining(keyword, pageable);
     }
 
+    //추천
+    public void vote(question question, site_user site_user) {
+        question.getVoter().add(site_user);
+        this.questionRepository.save(question);
+    }
+
 
 }
