@@ -3,18 +3,11 @@ package com.example.makeboard.Domain.Question;
 import com.example.makeboard.Domain.Answer.answer;
 import com.example.makeboard.Domain.Site_User.site_user;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.*;
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Set;
-import javax.persistence.OneToMany;
 
 @Data
 @Entity
@@ -35,7 +28,7 @@ public class question {
     @Column(length = 200)
     private String subject;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private site_user author;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
