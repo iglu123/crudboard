@@ -111,7 +111,7 @@
                             <td th:if="${answer?.author != null}" th:style="${answer.author.username=='admin'}?'font-weight: bold; color:red':'}'" th:text="${answer.author?.username}"></td>
                             <td th:unless="${answer?.author != null}" th:style="${'color:blue;text-decoration:underline'}" th:text="탈퇴회원"></td>
                             <td style="height:100px;padding-bottom:0px">
-                                <div>"[[${answer.content}]]"</div>
+                                <div>[[${answer.content}]]</div>
                                 <div>
                                     <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
                                        th:data-uri="@{|/ansvote/${answer.id}|}">
