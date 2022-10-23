@@ -50,15 +50,17 @@
 
 </style>
 <body>
-    <nav class="navbar1" style="background-color: limegreen">
+    <nav class="navbar1">
         <ul>
-
-            <li><a href="../">QNAver</a></li>
-            <li><a href="../board/list">BoardList</a></li>
+            <li><a href="/">QNAver</a></li>
+            <li><a href="/board/list">BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
             <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" href="../signup">Signup</a></li>
-
-            <li style="float:right"><a class="active" href="#about">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
         </ul>
     </nav>
   <div class = "top-layout">
@@ -67,7 +69,7 @@
 
   <div class="layout11">
 
-    <button type onclick="window.location.href='/board/write'" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
+    <button type onclick="window.location.href='/board/write'" sec:authorize="isAuthenticated()" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
 
 
 <!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
@@ -109,36 +111,7 @@
           <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
       </th:block>
 
-<!--      <form th:action="@{/board/list}" method="get">-->
-<!--          <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">-->
-<!--          <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>-->
 
-<!--      </form>-->
-
-
-<!--      <div th:if="${!paging.isEmpty()}">-->
-<!--          <ul class="pagination justify-content-center">-->
-<!--              <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-<!--                  <a class="page-link"-->
-<!--                     th:href="@{|?page=${paging.number - 1}|}">-->
-<!--                      <span>이전</span>-->
-<!--                  </a>-->
-<!--              </li>-->
-<!--              <li th:each="page: ${#numbers.sequence(0, paging.totalPages -1)}"-->
-<!--                  th:if="${page >= paging.number -5 and page <= paging.number + 5}"-->
-<!--                  th:classappend="${page == paging.number} ? 'active'"-->
-<!--                  class="page-item">-->
-<!--                  <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
-<!--              </li>-->
-<!--              <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-<!--                  <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
-<!--                      <span>다음</span>-->
-<!--                  </a>-->
-<!--              </li>-->
-<!--          </ul>-->
-<!--      </div>-->
-
-<!--      <form th:action="@{/board/list}" method="get"></form>-->
 
 
 

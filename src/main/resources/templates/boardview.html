@@ -44,14 +44,17 @@
 
 </style>
 <body>
-    <nav class="navbar1" style="background-color: limegreen">
+    <nav class="navbar1">
         <ul>
-
-            <li><a href="../">QNAver</a></li>
-            <li><a href="../../board/list">BoardList</a></li>
+            <li><a href="/">QNAver</a></li>
+            <li><a href="/board/list">BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
             <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" href="../../signup">Signup</a></li>
-            <li style="float:right"><a class="active" href="#about">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
         </ul>
     </nav>
     <div class = "top-layout">
@@ -64,7 +67,7 @@
             <p th:text="${question.content}">내용 부분</p>
         </div>
         <div class="my-2">
-            <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
+            <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" sec:authorize="isAuthenticated()"
                th:data-uri="@{|/questvote/${question.id}|}">
                 추천
                 <span class="badge rounded-pill bg-primary" th:text="${#lists.size(question.voter)}"></span>
@@ -78,12 +81,12 @@
         <hr>
 
         <div class="write-answer">
-            <form th:action="@{|/reply/${question.id}|}" method="post">
+            <form th:action="@{|/reply/${question.id}|}" method="post" >
                 <h3>답변 등록</h3>
                 <h5>내용</h5>
                 <textarea name="content" id="content"
                           style="width:900px; min-height: 120px; margin:auto; "></textarea>
-                <input type="submit" value="Submit" ></input>
+                <input type="submit" value="Submit" sec:authorize="isAuthenticated()" ></input>
             </form>
         </div>
         <br>
@@ -110,7 +113,7 @@
                             <td style="height:100px;padding-bottom:0px">
                                 <div>"[[${answer.content}]]"</div>
                                 <div>
-                                    <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" style="margin-top:2px; float: right;"
+                                    <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
                                        th:data-uri="@{|/ansvote/${answer.id}|}">
                                         추천
                                         <span class="badge rounded-pill bg-primary" th:text="${#lists.size(answer.voter)}"></span>

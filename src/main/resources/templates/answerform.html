@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
@@ -35,28 +35,28 @@
   }
 </style>
 <body>
-<nav class="navbar1" style="background-color: limegreen">
-  <ul>
+  <nav class="navbar1" style="background-color: limegreen">
+    <ul>
 
-    <li><a href="../">QNAver</a></li>
-    <li><a href="../../board/list">BoardList</a></li>
-    <!--            <li><a href="#contact">Contact</a></li>-->
-    <li style="float:right"><a class="active" href="../../signup">Signup</a></li>
+      <li><a href="../">QNAver</a></li>
+      <li><a href="../../board/list">BoardList</a></li>
+      <!--            <li><a href="#contact">Contact</a></li>-->
+      <li style="float:right"><a class="active" href="../../signup">Signup</a></li>
 
-    <li style="float:right"><a class="active" href="#about">Login</a></li>
-  </ul>
-</nav>
-<div class = "top-layout">
-  <h1>답변 수정</h1>
-</div>
-<div class = "layout">
-  <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">
-    <h3>Edit Your Reply</h3>
+      <li style="float:right"><a class="active" href="#about">Login</a></li>
+    </ul>
+  </nav>
+  <div class = "top-layout">
+    <h1>답변 수정</h1>
+  </div>
+  <div class = "layout">
+    <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">
+      <h3>Edit Your Reply</h3>
 
-    <h5 style="margin-bottom: 1px">Content</h5>
-    <textarea name="content" th:text="${answer.content}"></textarea>
-    <button type="submit">Edit</button>
-  </form>
-</div>
+      <h5 style="margin-bottom: 1px">Content</h5>
+      <textarea name="content" th:text="${answer.content}"></textarea>
+      <button type="submit">Edit</button>
+    </form>
+  </div>
 </body>
 </html>

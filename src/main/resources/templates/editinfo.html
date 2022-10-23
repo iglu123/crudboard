@@ -10,18 +10,19 @@
 <style>
 
 </style>
-<nav class="navbar1">
-    <ul>
-        <li><a href="#">QNAver</a></li>
-        <li><a href="board/list">BoardList</a></li>
-        <!--            <li><a href="#contact">Contact</a></li>-->
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-    </ul>
-</nav>
+    <nav class="navbar1">
+        <ul>
+            <li><a href="/">QNAver</a></li>
+            <li><a href="/board/list">BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+            <!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+        </ul>
+    </nav>
 <body>
 
     <div class = "layout">
