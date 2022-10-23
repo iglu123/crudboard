@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notice Board</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>Ask Question</title>
 </head>
 <style>
 
@@ -32,10 +34,22 @@
 </style>
 <body>
 
-  <div class = "top-layout">
-      <h2>Education</h2>
-  </div>
-  <div class = "layout">
+    <nav class="navbar1" style="background-color: limegreen">
+        <ul>
+            <li><a href="../">QNAver</a></li>
+            <li><a href="../board/list">BoardList</a></li>
+            <!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" href="../signup">Signup</a></li>
+            <li style="float:right"><a class="active" href="#about">Login</a></li>
+        </ul>
+    </nav>
+
+
+    <div class = "top-layout">
+          <h1>질문하기</h1>
+    </div>
+    <div class = "layout">
+
       <form action="/board/writepro" method="post">
         <h3>질문 등록</h3>
           <h5>제목</h5>
@@ -44,6 +58,6 @@
         <textarea name="content"></textarea>
         <button type="submit">작성</button>
       </form>
-  </div>
+    </div>
 </body>
 </html>

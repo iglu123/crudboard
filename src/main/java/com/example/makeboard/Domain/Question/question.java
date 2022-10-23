@@ -1,41 +1,40 @@
 package com.example.makeboard.Domain.Question;
 
 import com.example.makeboard.Domain.Answer.answer;
+import com.example.makeboard.Domain.Site_User.site_user;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import javax.persistence.*;
-import java.math.BigInteger;
-import java.sql.Timestamp;
-import java.util.Date;
-import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Data
 @Entity
 public class question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name="question_id")
     private Integer id;
+
     @Column(columnDefinition = "TEXT")
     private String content;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date create_date;
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date modify_date;
+
     @Column
     private LocalDateTime create_date;
+
     @Column
     private LocalDateTime modify_date;
+
     @Column(length = 200)
     private String subject;
-    private Long author_id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private site_user author;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<answer> answerList;
+
+    @ManyToMany
+    Set<site_user> voter;
 
 }

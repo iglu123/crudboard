@@ -1,20 +1,15 @@
 package com.example.makeboard.Service;
 
 import com.example.makeboard.Domain.Question.question;
-import com.example.makeboard.QuestionRepository;
+import com.example.makeboard.Domain.Site_User.site_user;
+import com.example.makeboard.Repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.ArrayList;
-import org.springframework.data.domain.Sort;
-import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class QuestionService {
@@ -23,21 +18,30 @@ public class QuestionService {
     private QuestionRepository questionRepository;
 
 
-
     //질문 작성
-    public void questwrite(question quest) {
+    public void questwrite(question quest, site_user username) {
         if (quest.getCreate_date() == null) {
             quest.setCreate_date(LocalDateTime.now());
         }
-
-        questionRepository.save(quest);
+        question qquestion = new question();
+        qquestion.setContent(quest.getContent());
+        qquestion.setSubject(quest.getSubject());
+        qquestion.setCreate_date(quest.getCreate_date());
+        qquestion.setAuthor(username);
+        questionRepository.save(qquestion);
     }
 
+    public void questmodify(question quest,String subject, String content) {
+        quest.setSubject(subject);
+        quest.setContent(content);
+        quest.setModify_date(LocalDateTime.now());
+        this.questionRepository.save(quest);
+    }
 
     //게시물 목록
-    public List<question> boardList() {
+    public Page<question> boardList(Pageable pageable) {
 
-        return questionRepository.findAll();
+        return questionRepository.findAll(pageable);
     }
 
     //질문 게시글 불러오기
@@ -55,11 +59,18 @@ public class QuestionService {
 
 
 
-    public Page<question> getList(int page) {
-        List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("id"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
-        return this.questionRepository.findAll(pageable);
+
+
+
+    public Page<question> searchList(String keyword, Pageable pageable) {
+
+        return questionRepository.findBySubjectContaining(keyword, pageable);
+    }
+
+    //추천
+    public void vote(question question, site_user site_user) {
+        question.getVoter().add(site_user);
+        this.questionRepository.save(question);
     }
 
 

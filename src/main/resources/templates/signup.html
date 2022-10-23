@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>Sign Up</title>
 </head>
 <style>
@@ -15,17 +17,51 @@
 
 </style>
 <body>
-    <div class = "top-layout">
-        <h2>Education</h2>
+    <nav class="navbar1">
+        <ul>
+            <li><a href="/">QNAver</a></li>
+            <li><a href="/board/list">BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+            <!--            <li><a href="#contact">Contact</a></li>-->
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{user/signup}">Signup</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
+            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+        </ul>
+    </nav>
+
+
+    <div>
+
+        <div>
+            <h4>회원가입</h4>
+        </div>
+
     </div>
-    <h2>Sign Up!</h2>
-    <p>userid</p>
-    <input type="text">
-    <p>password</p>
-    <input type="password">
-    <p>password confirm</p>
-    <input type="password">
-    <p>email address</p>
-    <input type="text">
+    <form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
+
+        <div>
+            <label for="username" class="form-label">사용자ID</label>
+            <input type="text"  th:field="*{username}" class="form-control">
+        </div>
+        <div>
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password"  th:field="*{password1}" class="form-control">
+        </div>
+        <div>
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password"  th:field="*{password2}" class="form-control">
+        </div>
+        <div>
+            <label for="email" class="form-label">이메일</label>
+            <input type="email"  th:field="*{email}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+<br>
+<br>
+
+
 </body>
 </html>
