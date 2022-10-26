@@ -16,10 +16,6 @@ class MakeboardApplicationTests {
 	@Autowired
 	QuestionRepository questionRepository;
 
-	@Autowired
-	Answer_voterRepository answer_voterRepository;
-	@Autowired
-	Question_voterRepository question_voterRepository;
 
 	@Autowired
 	Site_userRepository site_userRepository;
