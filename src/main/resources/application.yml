@@ -13,7 +13,7 @@ server:
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: postgres://lapbgsrumpviif:de280e94d4e88b9fab106cb8f34b7e9497dd68b09d78f1b5819a6b18f39d61aa@ec2-3-213-66-35.compute-1.amazonaws.com:5432/d6j51q16lptujf
+    url: postgres://ec2-3-213-66-35.compute-1.amazonaws.com:5432/d6j51q16lptujf
     username: postgres
     password: pass
 #    driverClassName: org.postgresql.Driver
