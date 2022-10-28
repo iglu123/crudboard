@@ -9,59 +9,62 @@
 <style>
 
     .top-layout {
-        background-color : limegreen;
-        width : 100%;
-        margin-top : 3px;
+        background-color: limegreen;
+        width: 100%;
+        margin-top: 3px;
 
     }
+
     .layout {
-        width : 500px;
-        margin : 0 auto;
+        width: 500px;
+        margin: 0 auto;
 
     }
 
     .layout input {
-        width : 100%;
-        box-sizing : border-box;
-        margin-bottom : 10px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
     }
 
     .layout textarea {
-        width : 100%;
+        width: 100%;
 
-        min-height : 300px;
+        min-height: 300px;
     }
 </style>
 <body>
 
-    <nav class="navbar1">
-        <ul>
-            <li><a href="/">QNAver</a></li>
-            <li><a href="/board/list">BoardList</a></li>
-            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-            <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-        </ul>
-    </nav>
+<nav class="navbar1">
+    <ul>
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
 
 
-    <div class = "top-layout">
-          <h1>질문하기</h1>
-    </div>
-    <div class = "layout">
+<div class="top-layout">
+    <h1>질문하기</h1>
+</div>
+<div class="layout">
 
-      <form action="/board/writepro" method="post">
+    <form action="/board/writepro" method="post">
         <h3>질문 등록</h3>
-          <h5>제목</h5>
+        <h5>제목</h5>
         <input name="subject" type="text">
-          <h5>내용</h5>
+        <h5>내용</h5>
         <textarea name="content"></textarea>
         <button type="submit">작성</button>
-      </form>
-    </div>
+    </form>
+</div>
 </body>
 </html>

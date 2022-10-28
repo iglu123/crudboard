@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,11 @@ public class QuestionService {
         quest.setModify_date(LocalDateTime.now());
         this.questionRepository.save(quest);
     }
+
+    public List<question> adminList(Long author) {
+        return questionRepository.findAllByAuthor_Id(author);
+        }
+
 
     //게시물 목록
     public Page<question> boardList(Pageable pageable) {

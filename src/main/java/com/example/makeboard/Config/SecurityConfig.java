@@ -27,12 +27,12 @@ public class SecurityConfig {
         http.csrf().disable();
 
         http.authorizeRequests().antMatchers("/**").permitAll()
-            .and()
+                .and()
                 .formLogin()
                 .loginPage("/user/login")
                 .defaultSuccessUrl("/")
 
-            .and()
+                .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/")

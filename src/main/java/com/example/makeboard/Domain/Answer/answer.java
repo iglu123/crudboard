@@ -27,7 +27,7 @@ public class answer {
     @ManyToOne(fetch = FetchType.LAZY)
     private site_user author;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private question question;
 
     @ManyToMany
