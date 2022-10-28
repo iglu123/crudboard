@@ -11,73 +11,73 @@
 
 
 </style>
-    <nav class="navbar1">
-        <ul>
-            <li><a href="/">QNAver</a></li>
-            <li><a href="/board/list">BoardList</a></li>
-            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-            <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-        </ul>
-    </nav>
+<nav class="navbar1">
+    <ul>
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
 <body>
 
-    <div class = "layout">
+<div class="layout">
 
-        <form th:action="@{../user/editpw}" th:object="${site_userEditForm}" method="post">
+    <form th:action="@{../user/editpw}" th:object="${site_userEditForm}" method="post">
 
-            <h3>Edit Your Info</h3>
-            <h5 style="margin-bottom: 1px">Username</h5>
+        <h3>Edit Your Info</h3>
+        <h5 style="margin-bottom: 1px">Username</h5>
 
-            <input name="username" type="text" readonly th:value="${memberinfo?.getUsername()}">
+        <input name="username" type="text" readonly th:value="${memberinfo?.getUsername()}">
 
 
-            <h5 style="margin-bottom: 1px; width: auto" >Current Password</h5>
-            <input name="curpass" type="hidden" th:value="${memberinfo?.getPassword()}">
-            <input id="passwordcheck" type="password" th:value="${memberinfo?.getPassword()}">
-            <button type="button" onclick="showchangeBtn()" id="showbtn">Change Password</button>
-            <div id="newpassword" style="display:none; width:185px;">
-                <p>--------------------------</p>
-                <div>
-                    <label for="password1" class="form-label" id="password1" style="margin-bottom: 1px">New Password</label>
-                    <input name="newpass1" type="password" th:field="*{password1}" class="form-control">
+        <h5 style="margin-bottom: 1px; width: auto">Current Password</h5>
+        <input name="curpass" type="hidden" th:value="${memberinfo?.getPassword()}">
+        <input id="passwordcheck" type="password" th:value="${memberinfo?.getPassword()}">
+        <button type="button" onclick="showchangeBtn()" id="showbtn">Change Password</button>
+        <div id="newpassword" style="display:none; width:185px;">
+            <p>--------------------------</p>
+            <div>
+                <label for="password1" class="form-label" id="password1" style="margin-bottom: 1px">New Password</label>
+                <input name="newpass1" type="password" th:field="*{password1}" class="form-control">
 
-                </div>
-                <div>
-                    <label for="password2" class="form-label" id="password2" style="margin-bottom: 1px">Confirm Password</label>
-                    <input name="newpass2" type="password" th:field="*{password2}" class="form-control">
-
-                </div>
-                <p>--------------------------</p>
             </div>
+            <div>
+                <label for="password2" class="form-label" id="password2" style="margin-bottom: 1px">Confirm
+                    Password</label>
+                <input name="newpass2" type="password" th:field="*{password2}" class="form-control">
 
-            <h5 style="margin-bottom: 1px">Email</h5>
-            <div style="width:120px;">
-                <input name="email" readonly  th:value="${memberinfo?.getEmail()}">
             </div>
-
-
-
-
-            <button type="submit">Edit</button>
-
-        </form>
-
-        <br>
-        <br>
-        <div style="border:2px solid red; width:50%; margin:auto; text-align: center;"  >
-            <h3>Withdrawal from QNAver</h3>
-            <div >
-                <a href='/user/resign'>Resign</a>
-            </div>
-
+            <p>--------------------------</p>
         </div>
-    </div>
 
+        <h5 style="margin-bottom: 1px">Email</h5>
+        <div style="width:120px;">
+            <input name="email" readonly th:value="${memberinfo?.getEmail()}">
+        </div>
+
+
+        <button type="submit">Edit</button>
+
+    </form>
+
+    <br>
+    <br>
+    <div style="border:2px solid red; width:50%; margin:auto; text-align: center;">
+        <h3>Withdrawal from QNAver</h3>
+        <div>
+            <a href='/user/resign'>Resign</a>
+        </div>
+
+    </div>
+</div>
 
 
 </body>
@@ -86,11 +86,9 @@
         const check = document.getElementById('newpassword');
 
 
-
         // btn1 숨기기 (display: none)
 
-            check.style.display='block';
-
+        check.style.display = 'block';
 
 
     }

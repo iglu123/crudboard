@@ -9,19 +9,18 @@ import com.example.makeboard.Service.QuestionService;
 import com.example.makeboard.Service.Site_userService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.data.domain.Page;
-
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -39,9 +38,7 @@ public class WebController {
     private QuestionRepository questionRepository;
 
 
-
-
-    @GetMapping ("/board/write") //localhost:8100/board/write
+    @GetMapping("/board/write") //localhost:8100/board/write
     public String index() {
         return "boardwrite";
     }
@@ -50,18 +47,16 @@ public class WebController {
     @PostMapping("/board/writepro")
     public String questionWriteProcess(question quest, Principal principal) {
         site_user site_username = this.site_userService.getUser(principal.getName());
-        questionService.questwrite(quest,site_username);
+        questionService.questwrite(quest, site_username);
 
         return "redirect:/board/list";
     }
 
     @RequestMapping("/test")
     public String test(Model model) {
-        model.addAttribute("test","모델로 가져옴");
+        model.addAttribute("test", "모델로 가져옴");
         return "test";
     }
-
-
 
 
 //    public String boardList(Model model) {
@@ -72,21 +67,22 @@ public class WebController {
 
     @GetMapping("/board/list")
     public String boardList(Model model,
-                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            @PageableDefault(page = 0, size = 10, value =12, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                             String keyword) {
 
         Page<question> list = null;
-        if(keyword == null) {
+        List<question> adminlist = questionService.adminList(1l);
+        if (keyword == null) {
             list = questionService.boardList(pageable);
         } else {
             list = questionService.searchList(keyword, pageable);
         }
 
-//        model.addAttribute("boardList", questionService.boardList());
-//        Page<question> list = questionService.boardList(pageable);
+        model.addAttribute("adminlist", adminlist);
+//        Page<question> adminlist = questionService.boardList(pageable);
 
         int nowPage = pageable.getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4 , 1);
+        int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
@@ -106,14 +102,13 @@ public class WebController {
     }
 
 
-
     @PostMapping("/reply/{id}")
     public String answerWriteProcess(Model model, @PathVariable("id") Integer id, @RequestParam String content, Principal principal) {
 //        answerService.answrite(ans);
         question question = this.questionService.boardView(id);
         site_user site_username = this.site_userService.getUser(principal.getName());
         this.answerService.answrite(question, content, site_username);
-        return String.format("redirect:/board/view/%s","?id="+id);
+        return String.format("redirect:/board/view/%s", "?id=" + id);
     }
 
     @GetMapping("/board/delete")
@@ -136,28 +131,26 @@ public class WebController {
     }
 
     @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id, Model model ) {
+    public String boardModify(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("question", questionService.boardView(id));
         return "boardmodify";
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, question question,Principal principal) {
+    public String boardUpdate(@PathVariable("id") Integer id, question question, Principal principal) {
         question questiontmp = this.questionService.boardView(id);
         questiontmp.setSubject(question.getSubject());
         questiontmp.setContent(question.getContent());
         questiontmp.setModify_date(LocalDateTime.now());
 
 
+        this.questionService.questmodify(questiontmp, questiontmp.getSubject(), questiontmp.getContent());
 
-
-        this.questionService.questmodify(questiontmp,questiontmp.getSubject(),questiontmp.getContent());
-
-        return String.format("redirect:/board/view/%s","?id="+id);
+        return String.format("redirect:/board/view/%s", "?id=" + id);
     }
 
     @GetMapping("/board/ansmodify/{id}")
-    public String ansboardModify(@PathVariable("id") Integer id, Model model ) {
+    public String ansboardModify(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("answer", answerService.getAnswer(id));
 
 

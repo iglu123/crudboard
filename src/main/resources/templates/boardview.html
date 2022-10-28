@@ -8,149 +8,171 @@
 </head>
 <style>
     .top-layout {
-        background-color : limegreen;
-        width : 100%;
-        margin-top : 3px;
+        background-color: limegreen;
+        width: 100%;
+        margin-top: 3px;
 
     }
 
     .body-layout {
-        width : 75%;
-        margin : 0 auto;
+        width: 75%;
+        margin: 0 auto;
     }
 
     .question {
-        width : 100%
+        width: 100%
     }
 
     .write-answer {
-        margin-top : -3px;
-        width : 100%;
-        display : flex;
+        margin-top: -3px;
+        width: 100%;
+        display: flex;
 
     }
 
     .replied {
-        width : 100%;
+        width: 100%;
     }
 
     table {
         width: 100%;
         border: 20px ridge limegreen;
     }
+
     th, td {
         border: 1px solid limegreen;
     }
 
 </style>
 <body>
-    <nav class="navbar1">
-        <ul>
-            <li><a href="/">QNAver</a></li>
-            <li><a href="/board/list">BoardList</a></li>
-            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-            <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-        </ul>
-    </nav>
-    <div class = "top-layout">
-        <h1>질문 상세</h1>
+<nav class="navbar1">
+    <ul>
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
+<div class="top-layout">
+    <h1>질문 상세</h1>
+</div>
+
+<div class="body-layout">
+    <div class="question" style="border-bottom:2px;">
+        <h1 th:text="${question.subject}">제목</h1>
+        <p th:text="${question.content}">내용 부분</p>
+    </div>
+    <div class="my-2">
+        <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
+           sec:authorize="isAuthenticated()"
+           th:data-uri="@{|/questvote/${question.id}|}">
+            추천
+            <span class="badge rounded-pill bg-primary" th:text="${#lists.size(question.voter)}"></span>
+        </a>
+        <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|"
+                sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername == question.author?.username}"
+                th:text="Edit">수정
+        </button>
+        <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|" sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+                th:text="Delete">삭제
+        </button>
     </div>
 
-    <div class = "body-layout">
-        <div class="question" style="border-bottom:2px;">
-            <h1 th:text="${question.subject}">제목</h1>
-            <p th:text="${question.content}">내용 부분</p>
-        </div>
-        <div class="my-2">
-            <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" sec:authorize="isAuthenticated()"
-               th:data-uri="@{|/questvote/${question.id}|}">
-                추천
-                <span class="badge rounded-pill bg-primary" th:text="${#lists.size(question.voter)}"></span>
-            </a>
-            <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|" sec:authorize="isAuthenticated()"
-                    th:if="${question.author != null and #authentication.getPrincipal().getUsername == question.author?.username}" th:text="Edit">수정</button>
-            <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|" sec:authorize="isAuthenticated()"
-                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}" th:text="Delete">삭제</button>
-        </div>
+    <hr>
 
-        <hr>
+    <div class="write-answer">
+        <form th:action="@{|/reply/${question.id}|}" method="post">
+            <h3>답변 등록</h3>
+            <h5>내용</h5>
+            <textarea name="content" id="content"
+                      style="width:900px; min-height: 120px; margin:auto; "></textarea>
+            <input type="submit" value="Submit" sec:authorize="isAuthenticated()"></input>
+        </form>
+    </div>
+    <br>
+    <hr>
 
-        <div class="write-answer">
-            <form th:action="@{|/reply/${question.id}|}" method="post" >
-                <h3>답변 등록</h3>
-                <h5>내용</h5>
-                <textarea name="content" id="content"
-                          style="width:900px; min-height: 120px; margin:auto; "></textarea>
-                <input type="submit" value="Submit" sec:authorize="isAuthenticated()" ></input>
-            </form>
-        </div>
+    <div class="replied">
+        <h5 th:if="${question?.answerList != null}"
+            th:text="|${#lists.size(question?.answerList)} Total Answers.|"></h5>
         <br>
-        <hr>
+        <div>
+            <table style="border:1px; margin:auto;">
+                <thead>
+                <tr>
+                    <th style="width:100px">User</th>
+                    <th width="600px">Answer</th>
+                    <th width="200px">Created</th>
+                    <th width="200px">Modified</th>
+                </tr>
 
-        <div class="replied">
-            <h5 th:if="${question?.answerList != null}" th:text="|${#lists.size(question?.answerList)} Total Answers.|"></h5>
-            <br>
-            <div>
-                <table style="border:1px; margin:auto;">
-                    <thead>
-                        <tr>
-                            <th style="width:100px">User</th>
-                            <th width="600px">Answer</th>
-                            <th width="200px">Created</th>
-                            <th width="200px">Modified</th>
-                        </tr>
+                </thead>
+                <tbody>
+                <tr th:each="answer : ${question?.answerList}">
+                    <td th:if="${answer?.author != null}"
+                        th:style="${answer.author.username=='admin'}?'font-weight: bold; color:red':'}'"
+                        th:text="${answer.author?.username}"></td>
+                    <td th:unless="${answer?.author != null}" th:style="${'color:blue;text-decoration:underline'}"
+                        th:text="탈퇴회원"></td>
+                    <td style="height:100px;padding-bottom:0px">
+                        <div>[[${answer.content}]]</div>
+                        <div>
+                            <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
+                               sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
+                               th:data-uri="@{|/ansvote/${answer.id}|}">
+                                추천
+                                <span class="badge rounded-pill bg-primary"
+                                      th:text="${#lists.size(answer.voter)}"></span>
+                            </a>
 
-                    </thead>
-                    <tbody>
-                        <tr th:each="answer : ${question?.answerList}">
-                            <td th:if="${answer?.author != null}" th:style="${answer.author.username=='admin'}?'font-weight: bold; color:red':'}'" th:text="${answer.author?.username}"></td>
-                            <td th:unless="${answer?.author != null}" th:style="${'color:blue;text-decoration:underline'}" th:text="탈퇴회원"></td>
-                            <td style="height:100px;padding-bottom:0px">
-                                <div>[[${answer.content}]]</div>
-                                <div>
-                                    <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm" sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
-                                       th:data-uri="@{|/ansvote/${answer.id}|}">
-                                        추천
-                                        <span class="badge rounded-pill bg-primary" th:text="${#lists.size(answer.voter)}"></span>
-                                    </a>
-
-                                    <div class="reply-button" style="margin-bottom:2px;text-align:right;">
-                                        <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|" sec:authorize="isAuthenticated()"
-                                                th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}" th:text="Edit">수정</button>
-                                        <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|" sec:authorize="isAuthenticated()"
-                                                th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}" th:text="Delete">삭제</button>
-                                    </div>
-
-
-                                </div>
-                            </td>
-                            <td th:text="${#temporals.format(answer.create_date,'yy-MM-dd HH:mm:ss')}"></td>
-                            <td th:text="${#temporals.format(answer.modify_date,'yy-MM-dd HH:mm:ss')}"></td>
-                        </tr>
-
-                    </tbody>
+                            <div class="reply-button" style="margin-bottom:2px;text-align:right;">
+                                <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|"
+                                        sec:authorize="isAuthenticated()"
+                                        th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
+                                        th:text="Edit">수정
+                                </button>
+                                <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|"
+                                        sec:authorize="isAuthenticated()"
+                                        th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
+                                        th:text="Delete">삭제
+                                </button>
+                            </div>
 
 
-                </table>
+                        </div>
+                    </td>
+                    <td th:text="${#temporals.format(answer.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#temporals.format(answer.modify_date,'yy-MM-dd HH:mm:ss')}"></td>
+                </tr>
 
-            </div>
+                </tbody>
+
+
+            </table>
+
         </div>
     </div>
+</div>
 
 </body>
 
 <script>
     const recommend_elements = document.getElementsByClassName("recommend");
-    Array.from(recommend_elements).forEach(function(element) {
-        element.addEventListener('click', function() {
-            if(confirm("정말로 추천하시겠습니까?")) {
+    Array.from(recommend_elements).forEach(function (element) {
+        element.addEventListener('click', function () {
+            if (confirm("정말로 추천하시겠습니까?")) {
                 location.href = this.dataset.uri;
-            };
+            }
+            ;
         });
     });
 </script>

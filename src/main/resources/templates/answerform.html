@@ -1,64 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-  <title>Edit Answer</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <title>Edit Answer</title>
 </head>
 <style>
 
-  .top-layout {
+    .top-layout {
 
-    background-color : limegreen;
+        background-color: limegreen;
 
-    width : 100%;
-    margin-top : 3px;
+        width: 100%;
+        margin-top: 3px;
 
-  }
-  .layout {
-    width : 500px;
-    margin : 0 auto;
+    }
 
-  }
+    .layout {
+        width: 500px;
+        margin: 0 auto;
 
-  .layout input {
-    width : 100%;
-    box-sizing : border-box;
-    margin-bottom : 10px;
-  }
+    }
 
-  .layout textarea {
-    width : 100%;
+    .layout input {
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
 
-    min-height : 300px;
-  }
+    .layout textarea {
+        width: 100%;
+
+        min-height: 300px;
+    }
 </style>
 <body>
-  <nav class="navbar1">
+<nav class="navbar1">
     <ul>
-      <li><a href="/">QNAver</a></li>
-      <li><a href="/board/list">BoardList</a></li>
-      <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-      <!--            <li><a href="#contact">Contact</a></li>-->
-      <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-      <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-      <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-      <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-      <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
     </ul>
-  </nav>
-  <div class = "top-layout">
+</nav>
+<div class="top-layout">
     <h1>답변 수정</h1>
-  </div>
-  <div class = "layout">
+</div>
+<div class="layout">
     <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">
-      <h3>Edit Your Reply</h3>
+        <h3>Edit Your Reply</h3>
 
-      <h5 style="margin-bottom: 1px">Content</h5>
-      <textarea name="content" th:text="${answer.content}"></textarea>
-      <button type="submit">Edit</button>
+        <h5 style="margin-bottom: 1px">Content</h5>
+        <textarea name="content" th:text="${answer.content}"></textarea>
+        <button type="submit">Edit</button>
     </form>
-  </div>
+</div>
 </body>
 </html>

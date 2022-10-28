@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,11 +46,11 @@ public class Site_userController {
         try {
             site_userService.create(site_userCreateForm.getUsername(),
                     site_userCreateForm.getEmail(), site_userCreateForm.getPassword1());
-        }catch(DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", "이미 등록된 사용자입니다.");
             return "signup";
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             bindingResult.reject("signupFailed", e.getMessage());
             return "signup";
@@ -65,22 +64,22 @@ public class Site_userController {
     }
 
     @Transactional
-    @GetMapping ("/resign")
-    public String resign(site_user site_user,Principal principal) {
+    @GetMapping("/resign")
+    public String resign(site_user site_user, Principal principal) {
         site_userService.deleteUser(principal.getName());
 
         return "redirect:/user/logout";
     }
 
     @GetMapping("/edit")
-    public String seeInfo(Site_userEditForm site_userEditForm,Principal principal, Model model) {
-        model.addAttribute("memberinfo",site_userService.getUser(principal.getName()));
+    public String seeInfo(Site_userEditForm site_userEditForm, Principal principal, Model model) {
+        model.addAttribute("memberinfo", site_userService.getUser(principal.getName()));
 
         return "editinfo";
     }
 
     @PostMapping("/editpw")
-    public String editInfo(@Valid Site_userEditForm site_userEditForm, Principal principal,BindingResult bindingResult) {
+    public String editInfo(@Valid Site_userEditForm site_userEditForm, Principal principal, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "redirect:/user/edit";
         }
@@ -90,10 +89,10 @@ public class Site_userController {
                     "2개의 패스워드가 일치하지 않습니다.");
             return "redirect:/user/edit";
         }
-        try{
+        try {
             site_user site_usertmp = site_userService.getUser(principal.getName());
             site_userService.updateUser(site_usertmp, site_userEditForm.getPassword1());
-        } catch(Exception e) {
+        } catch (Exception e) {
 
             bindingResult.reject("changeFailed", e.getMessage());
             return "redirect:/user/edit";

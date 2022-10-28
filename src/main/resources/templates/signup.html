@@ -9,56 +9,58 @@
 <style>
 
     .top-layout {
-        background-color : limegreen;
-        width : 100%;
-        margin-top : 3px;
+        background-color: limegreen;
+        width: 100%;
+        margin-top: 3px;
 
     }
 
 </style>
 <body>
-    <nav class="navbar1">
-        <ul>
-            <li><a href="/">QNAver</a></li>
-            <li><a href="/board/list">BoardList</a></li>
-            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-            <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-        </ul>
-    </nav>
+<nav class="navbar1">
+    <ul>
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
 
+
+<div>
 
     <div>
-
-        <div>
-            <h4>회원가입</h4>
-        </div>
-
+        <h4>회원가입</h4>
     </div>
-    <form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
 
-        <div>
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text"  th:field="*{username}" class="form-control">
-        </div>
-        <div>
-            <label for="password1" class="form-label">비밀번호</label>
-            <input type="password"  th:field="*{password1}" class="form-control">
-        </div>
-        <div>
-            <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password"  th:field="*{password2}" class="form-control">
-        </div>
-        <div>
-            <label for="email" class="form-label">이메일</label>
-            <input type="email"  th:field="*{email}" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
+</div>
+<form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
+
+    <div>
+        <label for="username" class="form-label">사용자ID</label>
+        <input type="text" th:field="*{username}" class="form-control">
+    </div>
+    <div>
+        <label for="password1" class="form-label">비밀번호</label>
+        <input type="password" th:field="*{password1}" class="form-control">
+    </div>
+    <div>
+        <label for="password2" class="form-label">비밀번호 확인</label>
+        <input type="password" th:field="*{password2}" class="form-control">
+    </div>
+    <div>
+        <label for="email" class="form-label">이메일</label>
+        <input type="email" th:field="*{email}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">회원가입</button>
+</form>
 <br>
 <br>
 

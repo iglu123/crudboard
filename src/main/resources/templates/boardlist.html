@@ -11,25 +11,26 @@
 <style>
 
     .top-layout {
-        background-color : limegreen;
-        width : 100%;
-        margin-top : 3px;
+        background-color: limegreen;
+        width: 100%;
+        margin-top: 3px;
 
     }
 
     .layout11 {
-        width : 1250px;
-        margin :  auto;
+        width: 1250px;
+        margin: auto;
         align-self: center;
 
     }
 
     #listtable {
-        margin-left:auto; margin-right:auto;
-        border:solid 1px;
+        margin-left: auto;
+        margin-right: auto;
+        border: solid 1px;
     }
 
-    #listtable tr,td,th {
+    #listtable tr, td, th {
         border: 1px black;
     }
 
@@ -50,72 +51,88 @@
 
 </style>
 <body>
-    <nav class="navbar1">
-        <ul>
-            <li><a href="/">QNAver</a></li>
-            <li><a href="/board/list">BoardList</a></li>
-            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-            <!--            <li><a href="#contact">Contact</a></li>-->
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-            <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a></li>
-            <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-            <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-        </ul>
-    </nav>
-  <div class = "top-layout">
-      <h1>Question List</h1>
-  </div>
+<nav class="navbar1">
+    <ul>
+        <li><a href="/">QNAver</a></li>
+        <li><a href="/board/list">BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
+        <!--            <li><a href="#contact">Contact</a></li>-->
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        </li>
+        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
+        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        </li>
+        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
+        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+    </ul>
+</nav>
+<div class="top-layout">
+    <h1>Question List</h1>
+</div>
 
-  <div class="layout11">
+<div class="layout11">
 
-    <button type onclick="window.location.href='/board/write'" sec:authorize="isAuthenticated()" style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!</button>
-
-
-<!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
-<!--      <input text style="width:600px; float:right; text-align: right;">-->
-      <form th:action="@{/board/list}" method="get">
-          <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>
-          <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">
-
-      </form>
+    <button type onclick="window.location.href='/board/write'" sec:authorize="isAuthenticated()"
+            style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!
+    </button>
 
 
+    <!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
+    <!--      <input text style="width:600px; float:right; text-align: right;">-->
+    <form th:action="@{/board/list}" method="get">
+        <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>
+        <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">
 
-      <table class="table table-bordered table-striped" >
+    </form>
+
+
+    <table class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <th width="50px" align="center">Article Number</th>
-                <th width="800px" align="center">Title</th>
-                <th width="100px" align="center">User</th>
-                <th width="300px" align="center">DateTime</th>
-            </tr>
+        <tr>
+            <th width="50px" align="center">Article Number</th>
+            <th width="800px" align="center">Title</th>
+            <th width="100px" align="center">User</th>
+            <th width="300px" align="center">DateTime</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="question , loop : ${list}">
-                <td th:text="${question?.id}"></td>
-                <td>
-                    <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'" th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
-                </td>
-                <td th:if="${question?.author != null}" th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'" th:text="${question.author?.username}"></td>
-                <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
-                <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
-            </tr>
+        <tr th:each="question , loop : ${adminlist}" th:if="${question.author?.username=='admin'}">
+            <td th:text="${question?.id}"></td>
+            <td>
+                <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
+                   th:text="'[공지사항]  '+${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
+            </td>
+            <td th:if="${question?.author != null}"
+                th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
+                th:text="${question.author?.username}"></td>
+            <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
+            <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+
+        <tr th:each="question , loop : ${list}" th:unless="${question.author?.username=='admin'}">
+            <td th:text="${question?.id}"></td>
+            <td>
+                <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
+                   th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
+            </td>
+            <td th:if="${question?.author != null}"
+                th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
+                th:text="${question.author?.username}"></td>
+            <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
+            <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+        </tr>
         </tbody>
     </table>
 
-      <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
 
 
-          <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, keyword = ${param.keyword})}" th:text="${page}"></a>
-          <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-      </th:block>
+        <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, keyword = ${param.keyword})}"
+           th:text="${page}"></a>
+        <strong th:if="${page == nowPage}" th:text="${page}" style="color : limegreen"></strong>
+    </th:block>
 
 
-
-
-
-
-  </div>
+</div>
 </body>
 </html>

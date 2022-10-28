@@ -11,7 +11,7 @@ public class site_user {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String username;
 
     @Column

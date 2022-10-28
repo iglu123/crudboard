@@ -1,9 +1,9 @@
 package com.example.makeboard.Service;
 
-import com.example.makeboard.Domain.Site_User.site_user;
-import com.example.makeboard.Repository.AnswerRepository;
 import com.example.makeboard.Domain.Answer.answer;
 import com.example.makeboard.Domain.Question.question;
+import com.example.makeboard.Domain.Site_User.site_user;
+import com.example.makeboard.Repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
