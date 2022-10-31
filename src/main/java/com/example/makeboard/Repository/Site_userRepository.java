@@ -11,4 +11,6 @@ public interface Site_userRepository extends JpaRepository <site_user , Long> {
     @Transactional
     Optional<site_user> deleteByUsername(String username);
 
+
+
 }
