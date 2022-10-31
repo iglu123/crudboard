@@ -77,7 +77,7 @@
                 <h2 sec:authorize="isAuthenticated()"
                     th:text="${#authentication.getPrincipal()?.getUsername+'님 환영합니다'}"></h2>
                 <h3 sec:authorize="isAnonymous()">로그인하셔야 이용가능합니다</h3>
-                <h3 sec:authorize="isFullyAuthenticated()">관리자님 환영합니다</h3>
+<!--                <h3 sec:authorize="isFullyAuthenticated()">관리자님 환영합니다</h3>-->
             </div>
         </div>
 
