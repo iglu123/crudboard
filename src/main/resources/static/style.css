@@ -4,7 +4,9 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: limegreen;
+    background-color: white;
+    border: limegreen;
+
 }
 
 li {

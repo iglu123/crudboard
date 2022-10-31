@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
     <title>Question View</title>
 </head>
 <style>
@@ -14,30 +15,32 @@
 
     }
 
+
+
     .body-layout {
-        width: 75%;
+        width: 60%;
         margin: 0 auto;
     }
 
-    .question {
-        width: 100%
-    }
+    /*.question {*/
+    /*    width: 100%*/
+    /*}*/
 
-    .write-answer {
-        margin-top: -3px;
-        width: 100%;
-        display: flex;
+    /*.write-answer {*/
+    /*    margin-top: -3px;*/
+    /*    width: 100%;*/
+    /*    display: flex;*/
 
-    }
+    /*}*/
 
-    .replied {
-        width: 100%;
-    }
+    /*.replied {*/
+    /*    width: 100%;*/
+    /*}*/
 
-    table {
-        width: 100%;
-        border: 20px ridge limegreen;
-    }
+    /*table {*/
+    /*    width: 100%;*/
+    /*    border: 20px ridge limegreen;*/
+    /*}*/
 
     th, td {
         border: 1px solid limegreen;
@@ -45,123 +48,154 @@
 
 </style>
 <body>
-<nav class="navbar1">
+<nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
+
     <ul>
-        <li><a href="/">QNAver</a></li>
-        <li><a href="/board/list">BoardList</a></li>
-        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-        <!--            <li><a href="#contact">Contact</a></li>-->
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
+        <!-- -->
+        <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
+        <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
+        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
+        <li style="float:right">
+            <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}"><i class="fa-solid fa-user-plus"></i>Signup</a>
         </li>
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+        <li style="float:right">
+            <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+        <li style="float:right">
+            <a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
         </li>
-        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
+
     </ul>
+
 </nav>
+
 <div class="top-layout">
     <h1>질문 상세</h1>
 </div>
 
 <div class="body-layout">
-    <div class="question" style="border-bottom:2px;">
-        <h1 th:text="${question.subject}">제목</h1>
-        <p th:text="${question.content}">내용 부분</p>
-    </div>
-    <div class="my-2">
-        <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
-           sec:authorize="isAuthenticated()"
-           th:data-uri="@{|/questvote/${question.id}|}">
-            추천
-            <span class="badge rounded-pill bg-primary" th:text="${#lists.size(question.voter)}"></span>
-        </a>
-        <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|"
-                sec:authorize="isAuthenticated()"
-                th:if="${question.author != null and #authentication.getPrincipal().getUsername == question.author?.username}"
-                th:text="Edit">수정
-        </button>
-        <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|" sec:authorize="isAuthenticated()"
-                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
-                th:text="Delete">삭제
-        </button>
-    </div>
+    <div class="card">
+        <h1 class="card-header" style="background-color: limegreen;">Question</h1>
+        <div class="card-body">
+            <h3 class="card-title" th:text="${question.subject}"></h3>
+            <hr>
+            <p class="card-text" th:text="${question.content}"></p>
 
-    <hr>
-
-    <div class="write-answer">
-        <form th:action="@{|/reply/${question.id}|}" method="post">
-            <h3>답변 등록</h3>
-            <h5>내용</h5>
-            <textarea name="content" id="content"
-                      style="width:900px; min-height: 120px; margin:auto; "></textarea>
-            <input type="submit" value="Submit" sec:authorize="isAuthenticated()"></input>
-        </form>
-    </div>
-    <br>
-    <hr>
-
-    <div class="replied">
-        <h5 th:if="${question?.answerList != null}"
-            th:text="|${#lists.size(question?.answerList)} Total Answers.|"></h5>
-        <br>
-        <div>
-            <table style="border:1px; margin:auto;">
-                <thead>
-                <tr>
-                    <th style="width:100px">User</th>
-                    <th width="600px">Answer</th>
-                    <th width="200px">Created</th>
-                    <th width="200px">Modified</th>
-                </tr>
-
-                </thead>
-                <tbody>
-                <tr th:each="answer : ${question?.answerList}">
-                    <td th:if="${answer?.author != null}"
-                        th:style="${answer.author.username=='admin'}?'font-weight: bold; color:red':'}'"
-                        th:text="${answer.author?.username}"></td>
-                    <td th:unless="${answer?.author != null}" th:style="${'color:blue;text-decoration:underline'}"
-                        th:text="탈퇴회원"></td>
-                    <td style="height:100px;padding-bottom:0px">
-                        <div>[[${answer.content}]]</div>
-                        <div>
-                            <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
-                               sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
-                               th:data-uri="@{|/ansvote/${answer.id}|}">
-                                추천
-                                <span class="badge rounded-pill bg-primary"
-                                      th:text="${#lists.size(answer.voter)}"></span>
-                            </a>
-
-                            <div class="reply-button" style="margin-bottom:2px;text-align:right;">
-                                <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|"
-                                        sec:authorize="isAuthenticated()"
-                                        th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
-                                        th:text="Edit">수정
-                                </button>
-                                <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|"
-                                        sec:authorize="isAuthenticated()"
-                                        th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
-                                        th:text="Delete">삭제
-                                </button>
-                            </div>
-
-
-                        </div>
-                    </td>
-                    <td th:text="${#temporals.format(answer.create_date,'yy-MM-dd HH:mm:ss')}"></td>
-                    <td th:text="${#temporals.format(answer.modify_date,'yy-MM-dd HH:mm:ss')}"></td>
-                </tr>
-
-                </tbody>
-
-
-            </table>
+            <div class="my-2">
+                <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
+                   sec:authorize="isAuthenticated()"
+                   th:data-uri="@{|/questvote/${question.id}|}">
+                    추천
+                    <span class="badge rounded-pill bg-primary" th:text="${#lists.size(question.voter)}"></span>
+                </a>
+                <button th:onclick="|location.href='@{/board/modify/{id}(id=${question.id})}'|"
+                        class="btn btn-success"
+                        style="text-align: right;"
+                        sec:authorize="isAuthenticated()"
+                        th:if="${question.author != null and #authentication.getPrincipal().getUsername == question.author?.username}"
+                        th:text="Edit">수정
+                </button>
+                <button th:onclick="|location.href='@{/board/delete(id=${question.id})}'|" sec:authorize="isAuthenticated()"
+                        class="btn btn-success"
+                        style="text-align: right;"
+                        th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+                        th:text="Delete">삭제
+                </button>
+            </div>
 
         </div>
     </div>
-</div>
+
+        <hr>
+
+        <div class="card" sec:authorize="isAuthenticated()">
+            <form th:action="@{|/reply/${question.id}|}" method="post">
+                <h1 class="card-header" style="background-color: limegreen;">Reply</h1>
+<!--                <h3 class="card-title">Content</h3>-->
+                <div class="card-body">
+                    <textarea name="content" id="content"
+                              style="width:100%; min-height: 120px; margin:auto; "></textarea>
+                    <input type="submit" value="Submit" style="margin-bottom:1px; float: right;" sec:authorize="isAuthenticated()"></input>
+                </div>
+
+            </form>
+
+        </div>
+        <br>
+        <br>
+        <div class="card">
+            <div class="card" id="replied answer">
+                <h5 class="card-header" style="background-color: limegreen;" th:if="${question?.answerList != null}"
+                    th:text="|${#lists.size(question?.answerList)} Total Answers.|"></h5>
+            </div>
+
+            <br>
+
+            <div class="card">
+                <table class="table-success" style="border:1px; margin:auto;">
+                    <thead>
+                    <tr>
+                        <th style="width:15%">User</th>
+                        <th style="width:65%">Answer</th>
+                        <th style="width:10%">Created</th>
+                        <th style="width:10%">Modified</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr th:each="answer : ${question?.answerList}">
+                        <td th:if="${answer?.author != null}"
+                            th:style="${answer.author.username=='admin'}?'font-weight: bold; color:red':'}'"
+                            th:text="${answer.author?.username}"></td>
+                        <td th:unless="${answer?.author != null}" th:style="${'color:blue;text-decoration:underline'}"
+                            th:text="탈퇴회원"></td>
+                        <td style="height:100px;padding-bottom:0px">
+                            <div>[[${answer.content}]]</div>
+                            <div>
+                                <a href="javascript:void(0);" class="recommend btn btn-outline-secondary btn-sm"
+                                   sec:authorize="isAuthenticated()" style="margin-top:2px; float: right;"
+                                   th:data-uri="@{|/ansvote/${answer.id}|}">
+                                    추천
+                                    <span class="badge rounded-pill bg-primary"
+                                          th:text="${#lists.size(answer.voter)}"></span>
+                                </a>
+
+                                <div class="reply-button" style="margin-bottom:2px;text-align:right;">
+                                    <button th:onclick="|location.href='@{/board/ansmodify/{id}(id=${answer.id})}'|"
+                                            class="btn btn-success"
+                                            sec:authorize="isAuthenticated()"
+                                            th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
+                                            th:text="Edit">수정
+                                    </button>
+                                    <button th:onclick="|location.href='@{/board/ansdelete/(id=${answer.id})}'|"
+                                            class="btn btn-success"
+                                            sec:authorize="isAuthenticated()"
+                                            th:if="${answer?.author != null and #authentication.getPrincipal().getUsername() == answer.author?.username}"
+                                            th:text="Delete">삭제
+                                    </button>
+                                </div>
+
+
+                            </div>
+                        </td>
+                        <td style="text-align: center;" th:text="${#temporals.format(answer.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+                        <td style="text-align: center;" th:text="${#temporals.format(answer.modify_date,'yy-MM-dd HH:mm:ss')}"></td>
+                    </tr>
+
+                    </tbody>
+
+
+                </table>
+                <br>
+                <br>
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
 
 </body>
 
