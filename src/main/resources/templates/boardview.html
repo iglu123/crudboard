@@ -75,15 +75,15 @@
     <!-- 우측 고정 메뉴와 질문답변 컨텐츠 레이아웃-->
     <div class="contentandmenu">
 
-        <div class="rightmenu" id="rightfix"><!-- 우측 고정 메뉴-->
+        <div class="rightmenu" id="rightfix" sec:authorize="isAuthenticated()"><!-- 우측 고정 메뉴-->
             <div class="card border-secondary mb-3" style="width:80%; height:180px">
                 <div class="card-header"><i class="fa-solid fa-circle-info"></i>My Activity</div>
                 <div class="card-body text-secondary">
                     <!-- TODO 유저의 전체 게시글 수와 답변 수 표시하기 -->
-                    <h5 class="card-title" th:if="${question?.author != null}"
-                        th:text="|${#lists.size(question.author.username)} Total Answers.|">
+                    <h5 class="card-title"
+                        th:text="${#authentication.getPrincipal()?.getUsername+'님'}">
                     </h5>
-                    <p class="card-text">고정 메뉴입니다.</p>
+                    <p class="card-text"> ___</p>
                 </div>
             </div>
         </div>
@@ -190,7 +190,7 @@
                                     th:text="탈퇴회원"></td>
                                 <!-- 답변 내용 보여주기 -->
                                 <td style="height:100px;overflow:auto;padding-bottom:0px">  <!-- height 잡아주고 overflow로 height 넘어가면 스크롤 처리 -->
-                                    <div style="height:100px;overflow:auto;">[[${answer.content}]]</div>
+                                    <div style="height:100px;overflow:auto;"><pre>[[${answer.content}]]</pre></div>
 
                                     <div>
 

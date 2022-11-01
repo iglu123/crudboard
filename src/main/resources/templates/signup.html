@@ -45,31 +45,51 @@
         <h1>회원 가입</h1>
     </div>
 
+    <div class="card" style="width:35%;height:20%;margin:auto;">
+        <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png" class="card-img-top">
+        <div class="card-body">
 
-    <form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
+            <form class="row g-3" th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
 
-        <div>
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" th:field="*{username}" class="form-control">
+                <div class="col-md-6">
+                    <label for="username" class="form-label">사용자ID</label>
+                    <input type="text" th:field="*{username}" class="form-control" placeholder="Username" required>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+                <div> </div>
+
+                <div class="col-md-6">
+                    <label for="password1" class="form-label">비밀번호</label>
+                    <input type="password" th:field="*{password1}" class="form-control" placeholder="Password" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="password2" class="form-label">비밀번호 확인</label>
+                    <input type="password" th:field="*{password2}" class="form-control" placeholder="Retype Password" required>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="email" class="form-label">이메일</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="Example: user@mAsk.com" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                <button type="submit" class="btn btn-primary">회원가입</button>
+                </div>
+
+            </form>
+
         </div>
 
-        <div>
-            <label for="password1" class="form-label">비밀번호</label>
-            <input type="password" th:field="*{password1}" class="form-control">
-        </div>
 
-        <div>
-            <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password" th:field="*{password2}" class="form-control">
-        </div>
 
-        <div>
-            <label for="email" class="form-label">이메일</label>
-            <input type="email" th:field="*{email}" class="form-control">
-        </div>
+    </div>
 
-        <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
 <br>
 <br>
 
