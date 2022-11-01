@@ -14,9 +14,9 @@ server:
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://ec2-3-213-66-35.compute-1.amazonaws.com:5432/d6j51q16lptujf
-    username: lapbgsrumpviif
-    password: de280e94d4e88b9fab106cb8f34b7e9497dd68b09d78f1b5819a6b18f39d61aa
+    url: jdbc:postgresql://ec2-54-91-223-99.compute-1.amazonaws.com/detuo7918edvls
+    username: pyqkoyyweanwcj
+    password: bc974b2b0b04261162799d77e3ff5847ebbf9c1d140e479696307e95d025bbda
   #    driverClassName: org.postgresql.Driver
 #    url: jdbc:postgresql://localhost:5432/newboard
 #    username: postgres
