@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
-    <title>Question List Page</title>
+    <title>Question List</title>
 </head>
 
 <style>
@@ -51,11 +51,15 @@
     /*}*/
 
 </style>
+
+
 <body>
+
+
 <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
 
     <ul>
-        <!-- -->
+
         <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
         <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
         <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
@@ -71,67 +75,75 @@
     </ul>
 
 </nav>
+
+<!--페이지 설명-->
 <div class="top-layout">
     <h1>Question List</h1>
 </div>
 
-<div class="layout11">
 
+
+<div class="layout11">
+    <!-- 질문 작성하기 버튼 -->
     <button type onclick="window.location.href='/board/write'" sec:authorize="isAuthenticated()"
             style="width:200px; margin-bottom:8px;  align:left;">Ask a Question!
     </button>
 
-
-    <!--      <button type="button" class="btn btn-outline-dark" style="float:right;">Search</button>-->
-    <!--      <input text style="width:600px; float:right; text-align: right;">-->
+    <!--질문 검색창-->
     <form th:action="@{/board/list}" method="get">
         <button type="submit" class="btn btn-outline-dark" style="float:right;">Search</button>
         <input type="text" name="keyword" style="width:600px; float:right; text-align: right;">
 
     </form>
 
-
+    <!--    질문 목록 테이블-->
     <table class="table table-bordered table-striped">
-        <thead>
-        <tr>
-            <th width="50px" align="center">Article Number</th>
-            <th width="800px" align="center">Title</th>
-            <th width="100px" align="center">User</th>
-            <th width="300px" align="center">DateTime</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="question , loop : ${adminlist}" th:if="${question.author?.username=='admin'}">
-            <td th:text="${question?.id}"></td>
-            <td>
-                <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
-                   th:text="'[공지사항]  '+${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
-            </td>
-            <td th:if="${question?.author != null}"
-                th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
-                th:text="${question.author?.username}"></td>
-            <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
-            <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
-        </tr>
 
-        <tr th:each="question , loop : ${list}" th:unless="${question.author?.username=='admin'}">
-            <td th:text="${question?.id}"></td>
-            <td>
-                <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
-                   th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
-            </td>
-            <td th:if="${question?.author != null}"
-                th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
-                th:text="${question.author?.username}"></td>
-            <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
-            <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
-        </tr>
+        <thead>
+            <tr>
+                <th style="width:50px;align:center;">Article Number</th>
+                <th style="width:800px;align:center;">Title</th>
+                <th style="width:100px;align:center;">User</th>
+                <th style="width:300px;align:center;">DateTime</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!--관리자일 경우 글씨 빨간색으로 공지처리(상단 고정위해 따로 설정)-->
+            <tr th:each="question , loop : ${adminlist}" th:if="${question.author?.username=='admin'}">
+                <td th:text="${question?.id}"></td>
+                <td>
+                    <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
+                       th:text="'[공지사항]  '+${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
+                </td>
+                <td th:if="${question?.author != null}"
+                    th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
+                    th:text="${question.author?.username}"></td>
+                <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
+                <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+
+            <!--관리자가 아닐 경우-->
+            <tr th:each="question , loop : ${list}" th:unless="${question.author?.username=='admin'}">
+                <td th:text="${question?.id}"></td>
+                <td>
+                    <a th:style="${question.author?.username=='admin'}?'font-weight: bold; color:red':'}'"
+                       th:text="${question?.subject}" th:href="@{/board/view(id=${question?.id})}"></a>
+                </td>
+                <td th:if="${question?.author != null}"
+                    th:style="${question.author?.username=='admin'}?'font-weight: bold; color: red;':'}'"
+                    th:text="${question.author?.username}"></td>
+                <td th:unless="${question?.author != null}" th:text="탈퇴회원"></td>
+                <td th:text="${#temporals.format(question?.create_date,'yy-MM-dd HH:mm:ss')}"></td>
+            </tr>
+
         </tbody>
     </table>
 
 
 
-    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">    <!-- th:block은 타임리프에서 반복문에서 발생하는 문제점 때문에 이용-->
         <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1}, keyword = ${param.keyword})}"
            th:text="${page}"></a>
         <strong th:if="${page == nowPage}" th:text="${page}" style="color : limegreen"></strong>

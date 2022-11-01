@@ -24,6 +24,8 @@ public class Site_userController {
 
     private final Site_userService site_userService;
 
+
+    //회원 가입 폼
     @GetMapping("/signup")
     public String get_signup(Site_userCreateForm site_userCreateForm) {
 
@@ -31,6 +33,8 @@ public class Site_userController {
         return "signup";
     }
 
+
+    //입력된 회원 가입 post
     @PostMapping("/signup")
     public String signup(@Valid Site_userCreateForm site_userCreateForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -58,19 +62,25 @@ public class Site_userController {
         return "redirect:/";
     }
 
+
+    //로그인 누르면 로그인 창으로 이동
     @GetMapping("/login")
     public String login() {
         return "login";
     }
 
+
+    //회원 탈퇴(DB에서 삭제)
     @Transactional
     @GetMapping("/resign")
     public String resign(site_user site_user, Principal principal) {
         site_userService.deleteUser(principal.getName());
 
-        return "redirect:/user/logout";
+        return "redirect:/user/logout"; //자동으로 로그아웃시키기
     }
 
+
+    //회원 정보(비밀번호) 수정
     @GetMapping("/edit")
     public String seeInfo(Site_userEditForm site_userEditForm, Principal principal, Model model) {
         model.addAttribute("memberinfo", site_userService.getUser(principal.getName()));
@@ -78,18 +88,20 @@ public class Site_userController {
         return "editinfo";
     }
 
+
+    //회원 정보 수정(입력된 비밀번호로 정보 변경 후 post)
     @PostMapping("/editpw")
     public String editInfo(@Valid Site_userEditForm site_userEditForm, Principal principal, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "redirect:/user/edit";
         }
 
-        if (!site_userEditForm.getPassword1().equals(site_userEditForm.getPassword2())) {
+        if (!site_userEditForm.getPassword1().equals(site_userEditForm.getPassword2())) {   //새로운 비밀번호, 비밀번호 확인 일치하지 않는다면
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "redirect:/user/edit";
         }
-        try {
+        try {   //새로운 비밀번호로 비밀번호 업데이트
             site_user site_usertmp = site_userService.getUser(principal.getName());
             site_userService.updateUser(site_usertmp, site_userEditForm.getPassword1());
         } catch (Exception e) {

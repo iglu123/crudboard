@@ -5,52 +5,60 @@
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
-    <title>Title</title>
+    <title>Login</title>
 </head>
 
 <body class="text-center">
-<nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
+    <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
 
-    <ul>
-        <!-- -->
-        <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
-        <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
-        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
-        <li style="float:right">
-            <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}"><i class="fa-solid fa-user-plus"></i>Signup</a>
-        </li>
-        <li style="float:right">
-            <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
-        <li style="float:right">
-            <a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
-        </li>
+        <ul>
 
-    </ul>
+            <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
+            <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}"><i class="fa-solid fa-user-plus"></i>Signup</a>
+            </li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            </li>
 
-</nav>
-<div class="container my-3">
-    <form th:action="@{/user/login}" method="post">
-        <div th:if="${param.isEmpty()}">
-            <div class="alert alert-danger">
-                비어있음
+        </ul>
+
+    </nav>
+
+    <!-- 페이지 설명 -->
+    <div class="top-layout">
+        <h1>로그인</h1>
+    </div>
+
+    <div class="container my-3">
+
+        <form th:action="@{/user/login}" method="post">
+            <div th:if="${param.isEmpty()}">
+                <div class="alert alert-danger">
+                    사용자ID 또는 비밀번호를 입력해 주세요.
+                </div>
             </div>
-        </div>
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                사용자ID 또는 비밀번호를 확인해 주세요.
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">
+                    사용자ID 또는 비밀번호를 확인해 주세요.
+                </div>
             </div>
-        </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" name="username" id="username" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
-    </form>
-</div>
+            <div class="mb-3">
+                <label for="username" class="form-label">사용자ID</label>
+                <input type="text" name="username" id="username" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" name="password" id="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">로그인</button>
+        </form>
+
+    </div>
 </body>
 
 </html>

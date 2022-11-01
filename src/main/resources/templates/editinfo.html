@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
-    <title>Title</title>
+    <title>User Info</title>
 
 </head>
 <style>
@@ -16,7 +16,7 @@
 <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
 
     <ul>
-        <!-- -->
+
         <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
         <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
         <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
@@ -35,70 +35,75 @@
 
 <body>
 
-<div class="layout">
+    <!-- 회원 정보 확인과 비밀번호 수정 폼 -->
+    <div class="layout">
 
-    <form th:action="@{../user/editpw}" th:object="${site_userEditForm}" method="post">
+        <form th:action="@{../user/editpw}" th:object="${site_userEditForm}" method="post">
 
-        <h3>Edit Your Info</h3>
-        <h5 style="margin-bottom: 1px">Username</h5>
+            <h3>Edit Your Info</h3>
 
-        <input name="username" type="text" readonly th:value="${memberinfo?.getUsername()}">
+            <h5 style="margin-bottom: 1px">Username</h5>
+
+            <input name="username" type="text" readonly th:value="${memberinfo?.getUsername()}">
 
 
-        <h5 style="margin-bottom: 1px; width: auto">Current Password</h5>
-        <input name="curpass" type="hidden" th:value="${memberinfo?.getPassword()}">
-        <input id="passwordcheck" type="password" th:value="${memberinfo?.getPassword()}">
-        <button type="button" onclick="showchangeBtn()" id="showbtn">Change Password</button>
-        <div id="newpassword" style="display:none; width:185px;">
-            <p>--------------------------</p>
-            <div>
-                <label for="password1" class="form-label" id="password1" style="margin-bottom: 1px">New Password</label>
-                <input name="newpass1" type="password" th:field="*{password1}" class="form-control">
+            <h5 style="margin-bottom: 1px; width: auto">Current Password</h5>
+            <input name="curpass" type="hidden" th:value="${memberinfo?.getPassword()}">
+            <input id="passwordcheck" type="password" th:value="${memberinfo?.getPassword()}">
+            <button type="button" onclick="showchangeBtn()" id="showbtn">Change Password</button>
+            <div id="newpassword" style="display:none; width:185px;">
+                <p>--------------------------</p>
+                <div>
+                    <label for="password1" class="form-label" id="password1" style="margin-bottom: 1px">New Password</label>
+                    <input name="newpass1" type="password" th:field="*{password1}" class="form-control">
 
+                </div>
+                <div>
+                    <label for="password2" class="form-label" id="password2" style="margin-bottom: 1px">Confirm
+                        Password</label>
+                    <input name="newpass2" type="password" th:field="*{password2}" class="form-control">
+
+                </div>
+                <p>--------------------------</p>
             </div>
-            <div>
-                <label for="password2" class="form-label" id="password2" style="margin-bottom: 1px">Confirm
-                    Password</label>
-                <input name="newpass2" type="password" th:field="*{password2}" class="form-control">
 
+            <h5 style="margin-bottom: 1px">Email</h5>
+            <div style="width:120px;">
+                <input name="email" readonly th:value="${memberinfo?.getEmail()}">
             </div>
-            <p>--------------------------</p>
+
+
+            <button type="submit">Edit</button>
+
+        </form>
+
+        <br>
+        <br>
+
+        <!-- 회원 탈퇴 버튼 -->
+        <div style="border:2px solid red; width:50%; margin:auto; text-align: center;">
+            <h3>Withdrawal from QNAver</h3>
+            <div>
+                <a href='/user/resign'>Resign</a>
+            </div>
+
         </div>
-
-        <h5 style="margin-bottom: 1px">Email</h5>
-        <div style="width:120px;">
-            <input name="email" readonly th:value="${memberinfo?.getEmail()}">
-        </div>
-
-
-        <button type="submit">Edit</button>
-
-    </form>
-
-    <br>
-    <br>
-    <div style="border:2px solid red; width:50%; margin:auto; text-align: center;">
-        <h3>Withdrawal from QNAver</h3>
-        <div>
-            <a href='/user/resign'>Resign</a>
-        </div>
-
     </div>
-</div>
 
 
 </body>
+
 <script>
+
+    /*
+    Change password 버튼 누르면 새로운 비밀번호와 확인칸 뜨게 하는 버튼
+    */
     function showchangeBtn() {
         const check = document.getElementById('newpassword');
-
-
         // btn1 숨기기 (display: none)
-
         check.style.display = 'block';
-
-
     }
+
 </script>
 
 </html>

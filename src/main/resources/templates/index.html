@@ -2,7 +2,7 @@
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>QNAver</title>
+    <title>mASK</title>
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
@@ -49,7 +49,7 @@
 <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
 
     <ul>
-        <!-- -->
+
         <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
         <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
         <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
@@ -67,7 +67,7 @@
 </nav>
 
 <div class="top-layout">
-    <h2>질의 응답 게시판</h2>
+    <h1>질의 응답 게시판</h1>
 
 </div>
 <div class="home-content" style="align-content: space-between">

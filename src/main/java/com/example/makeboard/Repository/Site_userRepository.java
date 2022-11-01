@@ -2,7 +2,6 @@ package com.example.makeboard.Repository;
 
 import com.example.makeboard.Domain.Site_User.site_user;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import javax.transaction.Transactional;
 import java.util.Optional;
 
