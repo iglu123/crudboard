@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
     <title>Edit Answer</title>
 </head>
+
+
 <style>
 
     .top-layout {
@@ -35,33 +39,51 @@
         min-height: 300px;
     }
 </style>
-<body>
-<nav class="navbar1">
-    <ul>
-        <li><a href="/">QNAver</a></li>
-        <li><a href="/board/list">BoardList</a></li>
-        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-        <!--            <li><a href="#contact">Contact</a></li>-->
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
-        </li>
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
-        </li>
-        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-    </ul>
-</nav>
-<div class="top-layout">
-    <h1>답변 수정</h1>
-</div>
-<div class="layout">
-    <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">
-        <h3>Edit Your Reply</h3>
 
-        <h5 style="margin-bottom: 1px">Content</h5>
-        <textarea name="content" th:text="${answer.content}"></textarea>
-        <button type="submit">Edit</button>
-    </form>
-</div>
+
+<body>
+
+
+    <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
+
+        <ul>
+
+            <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
+            <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}"><i class="fa-solid fa-user-plus"></i>Signup</a>
+            </li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- 페이지 설명-->
+    <div class="top-layout">
+        <h1>답변 수정</h1>
+    </div>
+
+
+    <!--답변 작성 폼-->
+    <div class="layout">
+        <form th:action="@{/board/ansupdate/{id}(id=${answer.id})}" method="post">
+
+            <h3>Edit Your Reply</h3>
+            <h5 style="margin-bottom: 1px">Content</h5>
+            <textarea name="content" th:text="${answer.content}"></textarea>
+
+            <button type="submit">Edit</button>
+        </form>
+    </div>
+
+
 </body>
+
+
 </html>

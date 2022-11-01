@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    <script src="https://kit.fontawesome.com/0b3d713076.js" crossorigin="anonymous"></script>
     <title>Sign Up</title>
 </head>
+
 <style>
 
     .top-layout {
@@ -17,50 +19,77 @@
 
 </style>
 <body>
-<nav class="navbar1">
-    <ul>
-        <li><a href="/">QNAver</a></li>
-        <li><a href="/board/list">BoardList</a></li>
-        <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}">MyInfo</a></li>
-        <!--            <li><a href="#contact">Contact</a></li>-->
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}">Signup</a>
-        </li>
-        <li style="float:right"><a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a></li>
-        <li style="float:right"><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
-        </li>
-        <!--            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>-->
-        <!--            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>-->
-    </ul>
-</nav>
+    <nav class="navbar1">   <!-- 네비게이션바 [로고 게시판 정보수정                로그인 로그아웃/회원가입-->
+
+        <ul>
+
+            <li><a class="navbar-brand" href="/"><img src="/mask.PNG" style="width:120px;height:52px;padding-left:0%;padding-right: 0%" alt="Logo"></a></li>
+            <li><a href="/board/list" style="text-align: center; margin:0;"><i class="fa-sharp fa-solid fa-clipboard-list"></i>BoardList</a></li>
+            <li><a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/edit}"><i class="fa-solid fa-user-pen"></i>MyInfo</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/signup}"><i class="fa-solid fa-user-plus"></i>Signup</a>
+            </li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAnonymous()" th:href="@{/user/login}"><i class="fa-solid fa-right-to-bracket"></i>Login</a></li>
+            <li style="float:right">
+                <a class="active" sec:authorize="isAuthenticated()" th:href="@{/user/logout}"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+            </li>
+
+        </ul>
+
+    </nav>
 
 
-<div>
-
-    <div>
-        <h4>회원가입</h4>
+    <!-- 페이지 설명 -->
+    <div class="top-layout">
+        <h1>회원 가입</h1>
     </div>
 
-</div>
-<form th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
+    <div class="card" style="width:35%;height:20%;margin:auto;">
+        <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png" class="card-img-top">
+        <div class="card-body">
 
-    <div>
-        <label for="username" class="form-label">사용자ID</label>
-        <input type="text" th:field="*{username}" class="form-control">
+            <form class="row g-3" th:action="@{../user/signup}" th:object="${site_userCreateForm}" method="post">
+
+                <div class="col-md-6">
+                    <label for="username" class="form-label">사용자ID</label>
+                    <input type="text" th:field="*{username}" class="form-control" placeholder="Username" required>
+                    <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
+                <div> </div>
+
+                <div class="col-md-6">
+                    <label for="password1" class="form-label">비밀번호</label>
+                    <input type="password" th:field="*{password1}" class="form-control" placeholder="Password" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="password2" class="form-label">비밀번호 확인</label>
+                    <input type="password" th:field="*{password2}" class="form-control" placeholder="Retype Password" required>
+                </div>
+
+                <div class="col-md-8">
+                    <label for="email" class="form-label">이메일</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <input type="email" th:field="*{email}" class="form-control" placeholder="Example: user@mAsk.com" required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                <button type="submit" class="btn btn-primary">회원가입</button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+
     </div>
-    <div>
-        <label for="password1" class="form-label">비밀번호</label>
-        <input type="password" th:field="*{password1}" class="form-control">
-    </div>
-    <div>
-        <label for="password2" class="form-label">비밀번호 확인</label>
-        <input type="password" th:field="*{password2}" class="form-control">
-    </div>
-    <div>
-        <label for="email" class="form-label">이메일</label>
-        <input type="email" th:field="*{email}" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary">회원가입</button>
-</form>
+
 <br>
 <br>
 

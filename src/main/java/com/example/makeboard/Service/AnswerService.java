@@ -22,51 +22,44 @@ public class AnswerService {
 
     //답변 작성
     public void answrite(question question, String content, site_user author) {
-        answer answer = new answer();
+        answer answer = new answer();//새로운 생성자 만들어서 폼에 입력되어있는 값들 대입하여 set
         answer.setContent(content);
         answer.setCreate_date(LocalDateTime.now());
         answer.setQuestion(question);
-
         answer.setAuthor(author);
-        this.answerRepository.save(answer);
+        this.answerRepository.save(answer);//persist
     }
 
-    public void ansDelete(Integer id) {
 
+    //답변 삭제
+    public void ansDelete(Integer id) {
 
         answerRepository.deleteById(id);
 
     }
 
+
+    //answer의 id로 answer 불러오기
     public answer getAnswer(Integer id) {
         Optional<answer> answer = this.answerRepository.findById(id);
         return answer.get();
 
     }
 
+
+    //해당 answer에 입력된 content와 현재 localtime으로 수정
     public void ansModify(answer answer, String content) {
         answer.setContent(content);
         answer.setModify_date(LocalDateTime.now());
         this.answerRepository.save(answer);
     }
 
+
+    //답변 추천(voter는 Set이라서 유저 중복 안됨)
     public void vote(answer answer, site_user site_user) {
         answer.getVoter().add(site_user);
         this.answerRepository.save(answer);
     }
-
-//    //게시물 목록
-//    public answer ansboardList(Integer id){
-//
-//
-//        return answerRepository.findByQuestion_Id(id).get();
-//    }
-
-
-//    //답변 게시글 불러오기
-//    public answer ansboardView(Integer id) {
-//        return answerRepository.findById(id).get();
-//    }
 
 
 }

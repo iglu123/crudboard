@@ -16,12 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 @RequiredArgsConstructor
 @Service
 public class Site_userSecurityService implements UserDetailsService {
 
     private final Site_userRepository site_userRepository;
 
+//    사용자명으로 비밀번호를 조회하여 리턴하는 메서드
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<site_user> _site_user = this.site_userRepository.findByUsername(username);
@@ -33,9 +35,12 @@ public class Site_userSecurityService implements UserDetailsService {
         site_user site_user = _site_user.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
 
+        //사용자명이 admin인 경우에는 ADMIN 권한을 부여
         if ("admin".equals(username)) {
             authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-        } else {
+        }
+        else //그 외에는 USER 권한을 부여
+        {
             authorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
         }
         System.out.println(_site_user);

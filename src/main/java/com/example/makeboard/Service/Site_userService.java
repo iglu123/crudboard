@@ -21,6 +21,7 @@ public class Site_userService {
     private PasswordEncoder passwordEncoder;
 
 
+    //회원 가입(회원 만들기)
     public site_user create(String username, String email, String password) {
         site_user user = new site_user();
         user.setUsername(username);
@@ -32,6 +33,8 @@ public class Site_userService {
         return user;
     }
 
+
+    //username으로 회원 찾기
     public site_user getUser(String username) {
         Optional<site_user> siteUser = this.site_userRepository.findByUsername(username);
         if ( siteUser.isPresent()) {
@@ -41,17 +44,19 @@ public class Site_userService {
         }
     }
 
+
+    //Username으로 회원 정보 DB에서 삭제
     public void deleteUser(String username){
         Optional<site_user> siteUser = this.site_userRepository.deleteByUsername(username);
 
-
-
     }
 
+
+    //회원 정보(비밀번호) set하여 수정
     public void updateUser(site_user site_user, String password){
         site_user.setPassword(passwordEncoder.encode(password));
 //        site_user.setPassword(password);
-        site_userRepository.saveAndFlush(site_user);
+        site_userRepository.saveAndFlush(site_user);    //즉시 DB에 변경사항을 적용하는 방식
 
 
 
