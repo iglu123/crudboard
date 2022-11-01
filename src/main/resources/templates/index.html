@@ -17,61 +17,44 @@
     }
 
     .home-content {
-        width:100%;
-        height: 500px;
+        width:60%;
+        margin:auto;
+        height: 700px;
         padding-top: 0%;
 
     }
 
-    div.left {
-        width: 50%;
-        height: 130%;
-        float: left;
-        padding:0%;
-        position:relative;
-        margin-top:-8px;
-    }
+
 
     img.why-board {
         width:100%;
+        height:100%;
         vertical-align: middle;
         opacity: 0.9;
     }
 
-    img.board-part {
-        width:100%;
-        vertical-align: middle;
-        opacity: 0.9;
-    }
 
     .why-text-1 {
         color: floralwhite;
         position: absolute;
-        transform: translate( 50%, -1000%);
+        transform: translate( 20%, -500%);
         text-decoration: underline;
     }
 
     .why-text-2 {
         color: ivory;
         position: absolute;
-        transform: translate( 50%, -400%);
+        transform: translate( 100%, -800%);
         text-decoration: underline;
     }
 
-    div.right {
-        width: 50%;
-        height: 130%;
-        float: right;
-        padding:0%;
-        position:relative;
-        margin-top:-8px;
-    }
+
 
     .signup-layout {
 
         color: ivory;
         position: absolute;
-        transform: translate( 0%, -350%);
+        transform: translate( 40%, -365%);
         text-decoration: underline;
 
     }
@@ -104,36 +87,26 @@
 </div>
 <div class="home-content">
 
-    <div class="left">
-        <img style="width:100%; height:100%;object-fit:cover;" class="why-board"
-             src="https://cdn.pixabay.com/photo/2019/04/15/11/12/why-4129050_960_720.jpg">
 
-        <div class="why-text-1">
-            <h1 sec:authorize="isAuthenticated()"
-                th:text="${#authentication.getPrincipal()?.getUsername+'님 환영합니다'}"></h1>
-        </div>
-        <div class="why-text-2">
-            <h3 sec:authorize="isAnonymous()">로그인하셔야 이용가능합니다</h3>
-        </div>
+    <img class="why-board" src="/myboard.PNG">
+
+    <div class="why-text-1">
+        <h1 sec:authorize="isAuthenticated()"
+            th:text="${#authentication.getPrincipal()?.getUsername+'님 환영합니다'}"></h1>
+    </div>
+    <div class="why-text-2">
+        <h3 sec:authorize="isAnonymous()">로그인하셔야 이용가능합니다</h3>
     </div>
 
-<!--    <div style="float:left; margin:auto;display: block; ">-->
-<!--        <img src="https://cdn.univ20.com/wp-content/uploads/2019/04/1da46a2364a265b480ee474118d50f9d.png"/>-->
-<!--    </div>-->
 
-    <div class="right">
-        <img style="width:100%; height:100% ;" class="board-part"
-             src="/board-part.PNG">
-
-
-            <div class="signup-layout" style="width:500px; margin-left: 10%" sec:authorize="isAnonymous()">
-                <h1>Don't have an ID?</h1>
-                <h3>Sign up for free!</h3>
-                <button onclick="window.location.href='user/signup'">Sign up</button>
-            </div>
-
-        </div>
+    <div class="signup-layout" style="width:500px; margin-left: 10%" sec:authorize="isAnonymous()">
+        <h1>Don't have an ID?</h1>
+        <h3>Sign up for free!</h3>
+        <button onclick="window.location.href='user/signup'">Sign up</button>
     </div>
+
+
+</div>
 
 </div>
 
